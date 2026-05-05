@@ -26,7 +26,7 @@
 ★ 120k+ — Anthropic 官方的 agentic coding 助理。有 Skills + plugin 生態系。
 
 #### [cline/cline](https://github.com/cline/cline) ⭐⭐⭐⭐⭐
-★ 61k+ · Apache-2.0 — VS Code extension，autonomous in-IDE agent：tool use、browser、step-by-step approval。**VS Code 用戶想要 IDE-native agentic dev 的首選**。
+★ 61k+ · Apache-2.0 — VS Code extension，autonomous in-IDE agent：tool use、browser、step-by-step approval。**VS Code 使用者要 IDE-native agentic dev 的好選項**。
 
 #### [continuedev/continue](https://github.com/continuedev/continue) ⭐⭐⭐⭐
 ★ 33k+ · Apache-2.0 — source-controlled AI checks，可以在 CI 強制執行。代表「**團隊 / governance**」這條角度的 coding agent。
@@ -38,7 +38,7 @@ Open source 的自主軟體開發 agent。
 ★ 43k+ · Apache-2.0 — 開源、可擴充的 AI agent，超出純 code suggestion——能 install / execute / edit / test，搭配任何 LLM。**provider-agnostic + MCP-native**，提供 desktop app、CLI、API 三種介面。（repo 現指向 `aaif-goose/goose`。）
 
 #### [RooCodeInc/Roo-Code](https://github.com/RooCodeInc/Roo-Code) ⭐⭐⭐⭐
-★ 23k+ · Apache-2.0 — VS Code 的 coding agent，採用「**多種專業 mode**」的設計，跟 Cline 的單一 agent flow 不同。VS Code 用戶想要 multi-mode 替代方案的選擇。
+★ 23k+ · Apache-2.0 — VS Code 的 coding agent，採用「**多種專業 mode**」的設計，跟 Cline 的單一 agent flow 不同。VS Code 使用者要 multi-mode 替代方案的選擇。
 
 ### Code Review
 

@@ -1,0 +1,106 @@
+name: Lint (link rot + banned words + schema)
+
+on:
+  pull_request:
+    paths:
+      - '**.md'
+      - 'scripts/**'
+      - 'resources/**'
+  schedule:
+    # 每月 1 號 UTC 03:00 跑完整檢查（catch link rot + star drift）
+    - cron: '0 3 1 * *'
+  workflow_dispatch:
+
+jobs:
+  banned-words:
+    name: Banned-word audit (zh-CN slips + overclaim phrases)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check zh-CN slips in zh-TW canonical files
+        run: |
+          # 只掃「公開展示」的 zh 內容檔。resources/style-guide.md 跟 .github/ 是 policy doc，
+          # 必然包含禁用詞做為「不要這樣寫」的範例，所以不掃。
+          BANNED=("教程" "視頻" "軟件" "代碼" "用戶" "網絡" "默認" "函数" "演算法" "算法" "程序")
+          FOUND=0
+          for word in "${BANNED[@]}"; do
+            if grep -rn --include="*.md" --exclude="*.en.md" \
+                  -F "$word" stages branches walkthroughs README.md CONTRIBUTING.md CONTRIBUTORS.md 2>/dev/null \
+                  | grep -v "(zh-CN)" \
+                  | grep -v "zh-CN repo" \
+                  | grep -v "中文（zh-CN）"; then
+              echo "❌ Banned word found: $word"
+              FOUND=$((FOUND+1))
+            fi
+          done
+          if [ $FOUND -gt 0 ]; then
+            echo ""
+            echo "Found $FOUND banned-word violations. See resources/style-guide.md §3."
+            exit 1
+          fi
+          echo "✓ No banned words detected."
+
+      - name: Check overclaim phrases
+        run: |
+          # 同樣只掃「公開展示」的內容檔（zh + en），不掃 policy doc / .ai / book / scripts。
+          OVERCLAIMS=("the most canonical" "Production-grade Chinese tutorial" "全世界最好的" "業界最強" "最緊迫")
+          FOUND=0
+          for phrase in "${OVERCLAIMS[@]}"; do
+            if grep -rn --include="*.md" \
+                  -F "$phrase" stages branches walkthroughs README.md README.en.md CONTRIBUTING.md CONTRIBUTING.en.md CONTRIBUTORS.md 2>/dev/null; then
+              echo "❌ Overclaim phrase found: $phrase"
+              FOUND=$((FOUND+1))
+            fi
+          done
+          if [ $FOUND -gt 0 ]; then
+            echo ""
+            echo "Found $FOUND overclaim violations. See resources/style-guide.md §3 'Overclaim 用語禁用'."
+            exit 1
+          fi
+          echo "✓ No overclaim phrases detected."
+
+  link-rot:
+    name: Link rot check (GitHub URLs)
+    runs-on: ubuntu-latest
+    # 只在 schedule 跟 workflow_dispatch 跑——PR 跑會太慢
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run link-check (--fast = GitHub URLs only)
+        run: python scripts/check-links.py --fast --quiet
+
+  star-drift:
+    name: Star drift detection
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run refresh-stars (warn only, don't fail CI)
+        # gh CLI 已內建在 ubuntu-latest runner，GH_TOKEN 自動 set
+        # 高門檻 (50%) 才警告，避免每月誤報
+        run: |
+          # 用 --check 才會在 drift 時退 1；用 || 接 ::warning:: 退 0
+          if ! python scripts/refresh-stars.py --threshold 50 --check; then
+            echo "::warning::Star drift detected (>=50%). 跑 'python scripts/refresh-stars.py' 看哪些 entry 要更新。"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

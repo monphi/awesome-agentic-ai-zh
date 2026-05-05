@@ -78,6 +78,19 @@ A project worth listing must have:
 - ❌ Listing a project just because it's popular
 - ❌ Long quotes from the project's own marketing copy
 
+## Becoming a Stage / Branch Maintainer
+
+Beyond one-shot PRs, we welcome **long-term maintainers** for specific stages
+or branches — responsible for periodic review, triaging issues in that area,
+and gating PRs.
+
+Self-nomination process:
+1. Open an issue titled `[maintainer] Stage N — your-handle` or `[maintainer] for-X branch — your-handle`
+2. State your time commitment (suggested: at least one quarter = 3 months)
+3. Briefly describe your background in this area
+
+See [`CONTRIBUTORS.md`](CONTRIBUTORS.md) for the current maintainer roster.
+
 ## License
 
 By contributing, you agree your work is licensed under MIT.

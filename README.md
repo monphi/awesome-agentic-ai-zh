@@ -11,7 +11,7 @@
 <p><em>結構化 7 階段學習路徑，不是平鋪 awesome list；每階段都有必跑 demo、必修閱讀、精選 project</em></p>
 
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat)](LICENSE)
-[![Status](https://img.shields.io/badge/status-Phase%205%20shipped%20%C2%B7%20134%20projects-success?style=flat)](#-現況phase-5-shipped)
+[![Status](https://img.shields.io/badge/status-Phase%206%20進行中%20%C2%B7%20134%20projects-success?style=flat)](#-現況phase-6-community)
 ![GitHub stars](https://img.shields.io/github/stars/WenyuChiou/awesome-agentic-ai-zh?style=flat&logo=github)
 ![GitHub forks](https://img.shields.io/github/forks/WenyuChiou/awesome-agentic-ai-zh?style=flat&logo=github)
 [![Lang](https://img.shields.io/badge/語言-繁體中文-red?style=flat)](README.md)
@@ -40,7 +40,7 @@
 - [🗺️ 7 階段學習地圖](#️-7-階段學習地圖)
 - [💡 如何學習](#-如何學習)
 - [📚 相關資源](#-相關資源)
-- [📍 現況：Phase 5 shipped](#-現況phase-5-shipped)
+- [📍 現況：Phase 6 community](#-現況phase-6-community)
 - [🤝 如何貢獻](#-如何貢獻)
 - [🙏 致謝](#-致謝)
 - [🎓 引用](#-引用)
@@ -179,25 +179,30 @@ flowchart TD
 中文社群必看：
 - [**datawhalechina/hello-agents**](https://github.com/datawhalechina/hello-agents) — Datawhale 系統性 agent 教學（zh-CN）
 - [**WangRongsheng/awesome-LLM-resources**](https://github.com/WangRongsheng/awesome-LLM-resources) — 完整的中文 LLM 資源整理（8k+ stars）
-- [**HqWu-HITCS/Awesome-Chinese-LLM**](https://github.com/HqWu-HITCS/Awesome-Chinese-LLM) — 中文開源大模型整理
+- [**AiHubCN/Awesome-Chinese-LLM**](https://github.com/AiHubCN/Awesome-Chinese-LLM) — 中文開源大模型整理
 
 ---
 
-## 📍 現況：Phase 5 shipped
+## 📍 現況：Phase 6 community
 
 **Phase 1-4（已完成）** — 骨架 + curation depth + visual polish（134 個 project、3 個 Mermaid 圖、跨 stage [walkthrough](walkthroughs/build-first-agent-in-7-steps.md)、[style guide](resources/style-guide.md)、[維護腳本](scripts/)、`.github/` 模板）
 
 **Phase 5（已 ship — distribution scaffolding）**：
-- [x] [PDF build script](scripts/build-pdf.sh)（pandoc-based）
-- [x] [mdBook setup](book.toml) + [build script](scripts/build-mdbook.sh)
+- [x] [PDF build script](scripts/build-pdf.sh) + [mdBook config](book.toml) + [build script](scripts/build-mdbook.sh)
 - [x] [GitHub Pages auto-deploy workflow](.github/workflows/deploy-book.yml)
-- [ ] **手動一次性 setup**：repo Settings → Pages → Source: GitHub Actions
-- [ ] **手動 PDF release**：本地跑 `bash scripts/build-pdf.sh` 後把 `dist/*.pdf` 上傳到 GitHub Release
+- 一次性 setup：repo Settings → Pages → Source: GitHub Actions（見 [launch checklist](.github/launch-checklist.md)）
+
+**Phase 6（進行中 — community + maintenance）**：
+- [x] [CI lint workflow](.github/workflows/lint.yml) — PR 上自動跑禁用詞 + overclaim 檢查；每月 1 號自動跑 link-rot + star-drift
+- [x] [`CONTRIBUTORS.md`](CONTRIBUTORS.md) — stage / branch maintainer ladder（歡迎自薦）
+- [x] [`.github/launch-checklist.md`](.github/launch-checklist.md) — 推廣前的一次性 setup 清單
+- [ ] 啟用 GitHub Discussions（Settings → Features）
+- [ ] 提交到 [`AiHubCN/Awesome-Chinese-LLM`](https://github.com/AiHubCN/Awesome-Chinese-LLM) 等社群 awesome list
+- [ ] 發布 launch 文章（Threads / dev.to）
 
 📖 **網站版（啟用 Pages 後）**：https://wenyuchiou.github.io/awesome-agentic-ai-zh/
 📄 **PDF 版（手動 release 後）**：見 [Releases](https://github.com/WenyuChiou/awesome-agentic-ai-zh/releases)
-
-**Phase 6（規劃中）** — Community + maintenance：CI link-rot 自動跑、貢獻者 ladder、推廣到中文社群
+👥 **貢獻者 ladder**：見 [CONTRIBUTORS.md](CONTRIBUTORS.md)
 
 ---
 

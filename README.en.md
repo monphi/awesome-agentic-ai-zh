@@ -1,7 +1,7 @@
 # awesome-agentic-ai-zh
 
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
-[![Status](https://img.shields.io/badge/status-Phase%205%20shipped%20%C2%B7%20134%20projects-success)](#-status-phase-5-shipped)
+[![Status](https://img.shields.io/badge/status-Phase%206%20in%20progress%20%C2%B7%20134%20projects-success)](#-status-phase-6-community)
 [![Lang](https://img.shields.io/badge/lang-English-blue)](README.en.md) [![繁中](https://img.shields.io/badge/語言-繁體中文-red)](README.md)
 
 > **English companion. The zh-TW [README.md](README.md) is canonical** — content is curated in zh-TW first; this page mirrors it for English readers.
@@ -27,7 +27,7 @@ After the main path, you go from "**LLM user**" to "**agent system builder**" �
 - [🗺️ The 7-Stage Learning Map](#️-the-7-stage-learning-map)
 - [💡 How to Learn](#-how-to-learn)
 - [📚 Related Resources](#-related-resources)
-- [🚀 Status: Phase 5 shipped](#-status-phase-5-shipped)
+- [🚀 Status: Phase 6 community](#-status-phase-6-community)
 - [🤝 Contributing](#-contributing)
 - [🙏 Acknowledgments](#-acknowledgments)
 - [🎓 Citation](#-citation)
@@ -166,25 +166,30 @@ This repo doesn't try to replace flat awesome lists. Use them when you already k
 For Chinese-speaking community:
 - [**datawhalechina/hello-agents**](https://github.com/datawhalechina/hello-agents) — Datawhale systematic agent tutorial (zh-CN)
 - [**WangRongsheng/awesome-LLM-resources**](https://github.com/WangRongsheng/awesome-LLM-resources) — comprehensive zh-CN LLM resources (8k+ stars)
-- [**HqWu-HITCS/Awesome-Chinese-LLM**](https://github.com/HqWu-HITCS/Awesome-Chinese-LLM) — open-source Chinese LLM catalog
+- [**AiHubCN/Awesome-Chinese-LLM**](https://github.com/AiHubCN/Awesome-Chinese-LLM) — open-source Chinese LLM catalog
 
 ---
 
-## 🚀 Status: Phase 5 shipped
+## 🚀 Status: Phase 6 community
 
 **Phase 1-4 (complete)** — skeleton + curation depth + visual polish (134 projects, 3 Mermaid diagrams, cross-stage [walkthrough](walkthroughs/build-first-agent-in-7-steps.en.md), [style guide](resources/style-guide.en.md), [maintenance scripts](scripts/), `.github/` templates)
 
 **Phase 5 (shipped — distribution scaffolding)**:
-- [x] [PDF build script](scripts/build-pdf.sh) (pandoc-based)
-- [x] [mdBook setup](book.toml) + [build script](scripts/build-mdbook.sh)
+- [x] [PDF build script](scripts/build-pdf.sh) + [mdBook config](book.toml) + [build script](scripts/build-mdbook.sh)
 - [x] [GitHub Pages auto-deploy workflow](.github/workflows/deploy-book.yml)
-- [ ] Enable GitHub Pages (one-time: repo Settings → Pages → Source: GitHub Actions)
-- [ ] First PDF release (manual: run `bash scripts/build-pdf.sh` then upload to GitHub Releases)
+- One-time setup: repo Settings → Pages → Source: GitHub Actions (see [launch checklist](.github/launch-checklist.md))
+
+**Phase 6 (in progress — community + maintenance)**:
+- [x] [CI lint workflow](.github/workflows/lint.yml) — auto-checks banned words + overclaim phrases on PR; monthly link-rot + star-drift cron
+- [x] [`CONTRIBUTORS.md`](CONTRIBUTORS.md) — stage / branch maintainer ladder (self-nominate via issue)
+- [x] [`.github/launch-checklist.md`](.github/launch-checklist.md) — pre-launch one-time setup checklist
+- [ ] Enable GitHub Discussions (Settings → Features)
+- [ ] Submit to community awesome lists ([`AiHubCN/Awesome-Chinese-LLM`](https://github.com/AiHubCN/Awesome-Chinese-LLM) etc.)
+- [ ] Launch posts (Threads / dev.to)
 
 📖 **Hosted version (post-deploy)**: https://wenyuchiou.github.io/awesome-agentic-ai-zh/
 📄 **PDF (post-deploy)**: see [Releases](https://github.com/WenyuChiou/awesome-agentic-ai-zh/releases)
-
-**Phase 6 (ongoing)** — community + maintenance: CI link-rot checks, contributor ladder, outreach
+👥 **Contributor ladder**: see [CONTRIBUTORS.md](CONTRIBUTORS.md)
 
 ---
 

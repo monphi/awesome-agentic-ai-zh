@@ -218,8 +218,9 @@ def main():
                 rel = fp.relative_to(REPO_ROOT)
                 print(f"    {rel}:{line_no}")
 
-    if args.check and (drift or not_found or missing):
-        # CI 模式：drift、404、或缺 stars row 都算失敗
+    if args.check and (drift or not_found):
+        # CI 模式：只有 drift 或 404 算失敗。
+        # `missing` 是 by design（article / spec / catalog entry 不需要 Stars row，見 style-guide §1）
         sys.exit(1)
 
 
