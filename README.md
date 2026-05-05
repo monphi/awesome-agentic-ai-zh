@@ -11,7 +11,7 @@
 <p><em>結構化 7 階段學習路徑，不是平鋪 awesome list；每階段都有必跑 demo、必修閱讀、精選 project</em></p>
 
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat)](LICENSE)
-[![Status](https://img.shields.io/badge/status-Phase%205%20在進行中%20%C2%B7%20134%20projects-success?style=flat)](#-現況phase-5-進行中)
+[![Status](https://img.shields.io/badge/status-Phase%205%20shipped%20%C2%B7%20134%20projects-success?style=flat)](#-現況phase-5-shipped)
 ![GitHub stars](https://img.shields.io/github/stars/WenyuChiou/awesome-agentic-ai-zh?style=flat&logo=github)
 ![GitHub forks](https://img.shields.io/github/forks/WenyuChiou/awesome-agentic-ai-zh?style=flat&logo=github)
 [![Lang](https://img.shields.io/badge/語言-繁體中文-red?style=flat)](README.md)
@@ -40,7 +40,7 @@
 - [🗺️ 7 階段學習地圖](#️-7-階段學習地圖)
 - [💡 如何學習](#-如何學習)
 - [📚 相關資源](#-相關資源)
-- [📍 現況：Phase 5 進行中](#-現況phase-5-進行中)
+- [📍 現況：Phase 5 shipped](#-現況phase-5-shipped)
 - [🤝 如何貢獻](#-如何貢獻)
 - [🙏 致謝](#-致謝)
 - [🎓 引用](#-引用)
@@ -183,21 +183,21 @@ flowchart TD
 
 ---
 
-## 📍 現況：Phase 5 進行中
+## 📍 現況：Phase 5 shipped
 
-**Phase 1-4（已完成）** — 骨架 + curation depth + visual polish（134 個 project，3 個 Mermaid 圖、跨 stage [walkthrough](walkthroughs/build-first-agent-in-7-steps.md)、[style guide](resources/style-guide.md)、[維護腳本](scripts/)、`.github/` 模板）
+**Phase 1-4（已完成）** — 骨架 + curation depth + visual polish（134 個 project、3 個 Mermaid 圖、跨 stage [walkthrough](walkthroughs/build-first-agent-in-7-steps.md)、[style guide](resources/style-guide.md)、[維護腳本](scripts/)、`.github/` 模板）
 
-**Phase 5（進行中）** — Distribution：
+**Phase 5（已 ship — distribution scaffolding）**：
 - [x] [PDF build script](scripts/build-pdf.sh)（pandoc-based）
 - [x] [mdBook setup](book.toml) + [build script](scripts/build-mdbook.sh)
 - [x] [GitHub Pages auto-deploy workflow](.github/workflows/deploy-book.yml)
-- [ ] 啟用 GitHub Pages（需在 repo Settings 切換為 GitHub Actions source）
-- [ ] 第一次 PDF release（手動跑 `build-pdf.sh` 後上傳 GitHub Release）
+- [ ] **手動一次性 setup**：repo Settings → Pages → Source: GitHub Actions
+- [ ] **手動 PDF release**：本地跑 `bash scripts/build-pdf.sh` 後把 `dist/*.pdf` 上傳到 GitHub Release
 
-📖 **網站版（部署後）**：https://wenyuchiou.github.io/awesome-agentic-ai-zh/
-📄 **PDF 版（部署後）**：見 [Releases](https://github.com/WenyuChiou/awesome-agentic-ai-zh/releases)
+📖 **網站版（啟用 Pages 後）**：https://wenyuchiou.github.io/awesome-agentic-ai-zh/
+📄 **PDF 版（手動 release 後）**：見 [Releases](https://github.com/WenyuChiou/awesome-agentic-ai-zh/releases)
 
-**Phase 6（持續中）** — Community + maintenance：CI link-rot 檢查、貢獻者 ladder、推廣
+**Phase 6（規劃中）** — Community + maintenance：CI link-rot 自動跑、貢獻者 ladder、推廣到中文社群
 
 ---
 

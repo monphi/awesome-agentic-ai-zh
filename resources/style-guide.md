@@ -50,15 +50,24 @@ PR 之前請先讀完本文。專案維護者也會用這份指南做 review。
 \`\`\`
 ```
 
-### 必填欄位
+### 必填欄位（GitHub repo entry）
+對「真實 GitHub repo」的 entry：
 - `Stars`（★ Xk+ 格式，無千位逗號）
 - `License`（SPDX ID 或標註例外，見 §5）
 - `推薦度`（⭐ × N，見 §2）
 - `教什麼`、`適合誰`
 
+### 必填欄位（非 repo entry：article / course / video / protocol / documentation）
+某些 entry 不是 GitHub repo 而是文章、影片、官方文件、catalog hub。對這類：
+- `推薦度`（必填）
+- `教什麼`、`適合誰`（必填）
+- `形式`（必填，標明是 `文章` / `影片` / `課程` / `精選清單` / `規格文件` 等）
+- `Stars` / `License` 可省略（沒有 GitHub repo 對應）
+
+範例：`Anthropic — Building Effective Agents` 部落格文章用 `形式 = 文章` + 推薦度，不需要 Stars / License。
+
 ### 選填欄位
 - `語言` — 主要程式語言（Python / TypeScript / 中文 等）
-- `形式` — 不是 repo 而是 article / course / video 時用
 - `最後更新` / `狀態` — 已停滯或維護放緩時加註
 - `備註`、`怎麼跑`
 

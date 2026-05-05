@@ -48,8 +48,10 @@ python --version
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 
-# 安裝套件
-pip install anthropic openai requests beautifulsoup4
+# 安裝所有 stage 會用到的套件（一次裝完，後面 stage 不會再 pip install）
+pip install anthropic openai requests beautifulsoup4 \
+            langgraph langchain-anthropic langchain-core \
+            chromadb langfuse fastapi uvicorn pydantic
 
 # Claude API key（去 console.anthropic.com 申請）
 export ANTHROPIC_API_KEY="sk-ant-..."

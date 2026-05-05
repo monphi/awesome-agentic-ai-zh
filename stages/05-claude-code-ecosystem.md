@@ -237,6 +237,8 @@ pip install mcp
 
 **適合誰**：追蹤新版功能、回報 bug、看 release notes。
 
+**備註**：在這個 stage（學 Skills），這個 repo 排在 `anthropics/skills`（⭐⭐⭐⭐⭐ 官方 spec）後面，所以給 ⭐⭐⭐⭐。在 branches（給 end-user 當入口）裡會看到 ⭐⭐⭐⭐⭐ 評等，是因為角色不同。
+
 ---
 
 #### [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills)

@@ -234,6 +234,8 @@ pip install mcp
 
 **Best for**: Tracking new features, filing bugs, reading release notes.
 
+**Notes**: At this stage (learning Skills), this repo sits below `anthropics/skills` (⭐⭐⭐⭐⭐, the official spec), so it's rated ⭐⭐⭐⭐. In branches (positioned as the end-user entry point), you'll see ⭐⭐⭐⭐⭐ — same repo, audience-specific framing.
+
 ---
 
 #### [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills)

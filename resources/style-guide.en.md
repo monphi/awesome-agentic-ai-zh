@@ -50,15 +50,24 @@ Every project entry uses this structure:
 \`\`\`
 ```
 
-### Required fields
+### Required fields (GitHub repo entry)
+For entries that are real GitHub repos:
 - `Stars` (`★ Xk+` format, no thousands separator)
 - `License` (SPDX ID or annotated exception, see §5)
 - `Recommendation` (⭐ × N, see §2)
 - `What it teaches`, `Best for`
 
+### Required fields (non-repo entry: article / course / video / protocol / documentation)
+Some entries are blogs, videos, official docs, or catalog hubs — not GitHub repos. For these:
+- `Recommendation` (required)
+- `What it teaches`, `Best for` (required)
+- `Format` (required, e.g. `Article` / `Video` / `Course` / `Curated list` / `Specification`)
+- `Stars` / `License` may be omitted (no GitHub repo to attach)
+
+Example: an `Anthropic — Building Effective Agents` blog entry uses `Format = Article` + `Recommendation`, without `Stars` or `License`.
+
 ### Optional fields
 - `Language` — primary programming language (Python / TypeScript / Chinese)
-- `Format` — when not a repo: article / course / video
 - `Last update` / `Status` — flag if stale or maintenance slowed
 - `Notes`, `Run it`
 

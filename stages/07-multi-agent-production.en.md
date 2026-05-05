@@ -249,7 +249,7 @@ Already cited. Specifically the `prompt_caching.ipynb`, `tool_use/`, and `multim
 
 **What it teaches**: 開源大模型食用指南 — comprehensive Chinese-language guide for fine-tuning and deploying open-source LLMs in Linux environments. Covers Qwen / Llama / GLM / multimodal models, full-parameter + LoRA + deployment.
 
-**Best for**: Chinese-speaking teams self-hosting open-source LLMs. Production-grade Chinese tutorial for the entire training-to-deployment cycle.
+**Best for**: Chinese-speaking teams self-hosting open-source LLMs. Comprehensive Chinese-language tutorial covering training, fine-tuning, and deployment.
 
 ---
 

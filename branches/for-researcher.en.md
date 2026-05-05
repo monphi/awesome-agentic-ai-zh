@@ -109,7 +109,7 @@ Claude Code infrastructure for PhD researchers — skills, agents, hooks, rules 
 
 **What it teaches**: Open-source Deep Research — supports both single-agent and supervisor + multi-researcher architectures (the multi-agent path currently lives in `src/legacy/`), parallel search, citation-grounded report synthesis. A solid reference for "LLM agent that auto-produces a cited brief."
 
-**Best for**: Researchers building "agent auto-generates a cited brief" workflows. The most canonical open-source pick in this category.
+**Best for**: Researchers building "agent auto-generates a cited brief" workflows. A solid open-source pick when you want a maintained reference implementation.
 
 **Notes**: Depends on LangGraph + search tools (API key required).
 
