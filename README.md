@@ -11,10 +11,11 @@
 <p><em>結構化 7 階段學習路徑，從「LLM 是什麼、token 怎麼算」一路到 multi-agent 編排、本地部署，<br/>每階段都有必做的 動手練習、必修閱讀、精選 project</em></p>
 
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat)](LICENSE)
-[![Status](https://img.shields.io/badge/status-Phase%207%20%C2%B7%202%20tracks%20%C2%B7%20170%2B%20entries%20%C2%B7%205%20branches-success?style=flat)](CONTRIBUTORS.md)
+[![繁中](https://img.shields.io/badge/語言-繁體中文-red?style=flat)](README.md)
+[![简中](https://img.shields.io/badge/語言-简体中文-orange?style=flat)](README.zh-CN.md)
+[![EN](https://img.shields.io/badge/lang-English-blue?style=flat)](README.en.md)
 ![GitHub stars](https://img.shields.io/github/stars/WenyuChiou/awesome-agentic-ai-zh?style=flat&logo=github)
 ![GitHub forks](https://img.shields.io/github/forks/WenyuChiou/awesome-agentic-ai-zh?style=flat&logo=github)
-[![Lang](https://img.shields.io/badge/語言-繁體中文-red?style=flat)](README.md)
 
 </div>
 

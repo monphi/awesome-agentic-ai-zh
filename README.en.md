@@ -6,8 +6,11 @@
 
 
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
-[![Status](https://img.shields.io/badge/status-Phase%207%20%C2%B7%202%20tracks%20%C2%B7%20170%2B%20entries%20%C2%B7%205%20branches-success)](CONTRIBUTORS.md)
-[![Lang](https://img.shields.io/badge/lang-English-blue)](README.en.md) [![繁中](https://img.shields.io/badge/語言-繁體中文-red)](README.md)
+[![繁中](https://img.shields.io/badge/語言-繁體中文-red)](README.md)
+[![简中](https://img.shields.io/badge/語言-简体中文-orange)](README.zh-CN.md)
+[![EN](https://img.shields.io/badge/lang-English-blue)](README.en.md)
+![GitHub stars](https://img.shields.io/github/stars/WenyuChiou/awesome-agentic-ai-zh?logo=github)
+![GitHub forks](https://img.shields.io/github/forks/WenyuChiou/awesome-agentic-ai-zh?logo=github)
 
 > **English companion. The zh-TW [README.md](README.md) is canonical** — content is curated in zh-TW first; this page mirrors it for English readers.
 
