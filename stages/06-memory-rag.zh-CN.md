@@ -23,18 +23,51 @@
 4. [**Anthropic — Contextual Retrieval**](https://www.anthropic.com/news/contextual-retrieval) — Anthropic 搭配 prompt caching 的 RAG 写法
 5. [**LangChain — Text splitters**](https://docs.langchain.com/oss/python/integrations/splitters/index) — chunking 策略入门
 
+## 🧭 单元指引
+
+这一章先带你简单理解短期记忆与长期记忆，再聚焦到 RAG。
+
+| 比较维度 | Short-term memory（短期记忆） | Long-term memory（长期记忆） |
+|---|---|---|
+| 中文可称 | 短期记忆 | 长期记忆 |
+| 来源 | 当前对话内容 | 跨 session 或长期保存的信息 |
+| 持续时间 | 短，通常限于当前 session | 长，可跨 session |
+| 技术基础 | 上下文窗口（context window）/ prompt | 记忆存储层（memory store）/ 用户档案 / 向量数据库 |
+| 适合记什么 | 任务细节、刚刚说过的内容 | 稳定偏好、长期目标、背景资料 |
+| 是否受 context 长度限制 | 会，因为模型一次能看的内容有限 | 较不会，因为可以先存在外部，需要时再取一小段放回来 |
+| 生活例子 | 刚刚收到的手机验证码、正在进行对话的上一句话 | 你深度掌握的知识、图书馆、知识库、读过的书 |
+
+这里的工作阶段（session）可以理解成一次连续互动，例如同一段聊天、同一次任务，或同一次 agent 执行。
+
+RAG 可以想成在帮 agent 盖图书馆。你要先把书放好、分类好，后续要查资料时，才会又快又精准。
+
+最基础的 RAG 可以拆成两条流水线：
+
+- **数据预处理**：ingest → chunk → embed → store（index）。这一步是在建立可检索的知识库。
+- **检索生成**：retrieve → generate。这一步是在用户提问时，找出相关内容，再交给 LLM 生成回答。
+
+![RAG 流水线总览](../resources/diagrams/rag-pipeline-overview.jpg)
+
+图中的 RAG Fusion、query rewrite 等属于进阶检索技巧。第一次学 RAG 时，先理解主线流程即可。
+
+上面只是最小骨架。设计与概念细节，会在下面各自区块展开。
+
+读这章时可以顺便思考：RAG 不适合哪些应用场景？哪些场景适合 RAG，但基本 RAG 还不够好？
+
+这会带到更进阶的 RAG 技术，例如 GraphRAG。有兴趣的同学可以思考，为何这种情境要设计这样的 RAG 解决方案，不用实现每种 RAG 技术或细节。
+
 ## 🧩 Chunking 怎么想
 
-好的 chunking 可以让 LLM 在有限 context 内，用更精确、完整的资讯生成回答。它不是把文字平均切开。
+好的 chunking 可以让 LLM 在有限 context 内，用更精确、完整的信息生成回答。它不是把文字平均切开。
 
-切法取决于应用场景与文件内容。它会决定 retriever 看见的最小语义单位。
+切法取决于应用场景与文档内容。它会决定 retriever 看见的最小语义单位。
 
 一个好 chunk 要同时做到两件事：**够完整**，让模型看得懂上下文；**够聚焦**，让检索不带太多杂讯。chunk 太小会失去前后文，chunk 太大会让相似度搜索变钝。
 
 常见策略：
 
 - **固定长度（Fixed-Length）**：照字符数或 token 数切。优点是简单稳定；缺点是一板一眼，容易切断段落、句子或表格。
-- **滑动窗口（Sliding Window）**：每个 chunk 之间保留重叠区块（overlap）。优点是比较不会在边界掉资讯；缺点是索引量会变大。
+- **滑动窗口（Sliding Window）**：每个 chunk 之间保留重叠区块（overlap）。优点是比较不会在边界掉信息；缺点是索引量会变大。
 - **递归切割（Recursive）**：先尝试保留段落，如果长度还是不适合，再退到句子、字词等更小单位。通常是入门 RAG 的好基准。
 - **语义切割（Semantic Chunking）**：依 embedding 或语义变化切，也就是当前区块与前一个区块的语义相似度出现差异。适合长文件，但成本与复杂度较高。
 - **混合策略（Hybrid）**：依照应用场景，思考不同文件结构该怎么混搭切法。例如，一篇论文可能要保留章节、表格、公式与引用脉络。
