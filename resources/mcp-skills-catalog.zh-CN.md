@@ -1,4 +1,4 @@
-# MCP / Skills 整合目录
+# MCP / Skills 集成目录
 
 > [繁體中文](./mcp-skills-catalog.md) | **简体中文** | [English](./mcp-skills-catalog.en.md)
 
@@ -61,7 +61,7 @@
 | 推荐度 | ⭐⭐⭐⭐（社群、最热门） |
 
 **教什么**：透过 Obsidian REST API community plugin 让 LLM 读写你的 Obsidian vault。
-**适合谁**：Obsidian 重度使用者，想用 Claude Code 整理 daily note、自动 link、跨文件搜索。
+**适合谁**：Obsidian 重度用户，想用 Claude Code 整理 daily note、自动 link、跨文件搜索。
 **备注**：要先在 Obsidian 装 [Local REST API](https://github.com/coddingtonbear/obsidian-local-rest-api) plugin。
 
 ### [PleasePrompto/notebooklm-skill](https://github.com/PleasePrompto/notebooklm-skill) ⭐⭐⭐⭐
@@ -97,7 +97,7 @@
 | 推荐度 | ⭐⭐⭐ |
 
 **教什么**：透过 Logseq Local HTTP API 让 LLM 读写 Logseq graph。
-**适合谁**：Logseq 使用者要自动化 daily journal、跨页 link、查询 backlinks。
+**适合谁**：Logseq 用户要自动化 daily journal、跨页 link、查询 backlinks。
 **备注**：需要 Logseq 开启 HTTP API（Settings → Features → HTTP API）。
 
 ### [skridlevsky/graphthulhu](https://github.com/skridlevsky/graphthulhu) ⭐⭐⭐
@@ -137,7 +137,7 @@
 | 推荐度 | ⭐⭐⭐⭐⭐（**官方**，必装） |
 
 **教什么**：Anthropic 官方 Agent Skills repo，含 docx / xlsx / pptx / pdf 处理 skill。
-**适合谁**：所有 Claude Code 使用者——直接 `claude skill install` 就能让 Claude 读写 Office 档。
+**适合谁**：所有 Claude Code 用户——直接 `claude skill install` 就能让 Claude 读写 Office 档。
 **备注**：是 Skills 集合不是 MCP；走 Stage 5.3 Skill 体系。
 
 ### [haris-musa/excel-mcp-server](https://github.com/haris-musa/excel-mcp-server) ⭐⭐⭐⭐⭐
@@ -213,7 +213,7 @@
 | 推荐度 | ⭐⭐⭐⭐⭐（一个 server 包整套 Google） |
 
 **教什么**：Gmail、Calendar、Docs、Sheets、Slides、Drive、Chat、Forms、Tasks、Search 全部一个 MCP server 搞定。
-**适合谁**：Google Workspace 重度使用者——回信、开会、写文件、操作 sheet 都一个 server 处理。
+**适合谁**：Google Workspace 重度用户——回信、开会、写文件、操作 sheet 都一个 server 处理。
 **备注**：OAuth 设置稍微麻烦但一次设置好；功能覆盖 Google 各家最完整。
 
 ### [xing5/mcp-google-sheets](https://github.com/xing5/mcp-google-sheets) ⭐⭐⭐⭐
@@ -241,7 +241,7 @@
 | 推荐度 | ⭐⭐⭐⭐（M365 全套） |
 
 **教什么**：透过 Microsoft Graph API 操作 M365——Outlook、Teams、OneDrive、SharePoint。
-**适合谁**：用 M365 的企业使用者——要 LLM 回信、查行事历、捞 OneDrive 档。
+**适合谁**：用 M365 的企业用户——要 LLM 回信、查行事历、捞 OneDrive 档。
 **备注**：需要 Azure AD app registration；公司 IT 政策可能挡。
 
 ### [ryaker/outlook-mcp](https://github.com/ryaker/outlook-mcp) ⭐⭐⭐
@@ -281,7 +281,7 @@
 | 推荐度 | ⭐⭐⭐⭐⭐（**官方**） |
 
 **教什么**：GitHub 官方 MCP——issue / PR / repo / Actions / Codespaces 操作。
-**适合谁**：所有 GitHub 使用者；Claude Code 接上去后 PR review、issue triage、release notes 都能跑。
+**适合谁**：所有 GitHub 用户；Claude Code 接上去后 PR review、issue triage、release notes 都能跑。
 **备注**：**走 Track A 的 A3 动手练习 CLI-9 必装**。
 
 ### [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian) ⭐⭐⭐⭐⭐
@@ -317,7 +317,7 @@
 | 推荐度 | ⭐⭐⭐⭐（无 admin 权限也能用） |
 
 **教什么**：Slack MCP，DM / group DM / 频道消息抓取，自带 history fetch logic。
-**适合谁**：个人使用者（不是 Slack admin）也想接 Slack 的人。
+**适合谁**：个人用户（不是 Slack admin）也想接 Slack 的人。
 **备注**：不需要 admin 级别 token；走用户层 OAuth。
 
 ### [jerhadf/linear-mcp-server](https://github.com/jerhadf/linear-mcp-server) ⭐⭐⭐⭐
@@ -645,7 +645,7 @@
 | 推荐度 | ⭐⭐⭐ |
 
 **教什么**：飞书（Lark）docs / sheet / bitable ↔ Markdown 双向转换，含 OAuth 2.0、CLI、TUI、Claude Skills。
-**适合谁**：用飞书 / Lark 写文档的中文使用者，要把 Lark 内容跟 Claude Code 串起来。
+**适合谁**：用飞书 / Lark 写文档的中文用户，要把 Lark 内容跟 Claude Code 串起来。
 **备注**：目前中文圈 MCP / Skill 主要选择之一；微信 / 钉钉暂时没有独立 MCP（多半混在 chat bot framework 里）。
 
 ### [netease-youdao/LobsterAI](https://github.com/netease-youdao/LobsterAI) ⭐⭐⭐⭐

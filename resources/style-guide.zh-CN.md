@@ -56,10 +56,10 @@ PR 之前请先读完本文。项目维护者也会用这份指南做 review。
 - `教什么`、`适合谁`
 
 ### 必填字段（非 repo entry：article / course / video / protocol / documentation）
-某些 entry 不是 GitHub repo 而是文章、影片、官方文件、catalog hub。对此类：
+某些 entry 不是 GitHub repo 而是文章、视频、官方文件、catalog hub。对此类：
 - `推荐度`（必填）
 - `教什么`、`适合谁`（必填）
-- `形式`（必填，标明是 `文章` / `影片` / `课程` / `精选列表` / `规格文件` 等）
+- `形式`（必填，标明是 `文章` / `视频` / `课程` / `精选列表` / `规格文件` 等）
 - `Stars` / `License` 可省略（没有 GitHub repo 对应）
 
 范例：`Anthropic — Building Effective Agents` 部落格文章用 `形式 = 文章` + 推荐度，不需要 Stars / License。

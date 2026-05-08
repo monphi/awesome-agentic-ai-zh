@@ -70,7 +70,7 @@
 - Windows 路径用反斜线（`C:\Users\...`），多数 CLI 内部会转，但有时会搞混
 - 建议：在 git-bash / WSL 下用 forward slash，避免奇怪 quoting
 
-### git 整合差异
+### git 集成差异
 - **Aider** 自动 commit 每次改动（这是它的设计，不是 bug）
 - **Claude Code / Codex / OpenCode / goose** 默认不自动 commit，需要手动或 prompt 要求
 

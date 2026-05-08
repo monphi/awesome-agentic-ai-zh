@@ -6,7 +6,7 @@
 
 ⏱ **时间估算**：1-2 周（约 8-15 小时）
 
-CLI 跑得顺了之后，下一步：**把它接到你的真实工作流程里**。MCP server 整合、CI 自动化、cost / observability。这节之后，CLI 不只是你个人的工具，而是 team 工作流的一部分。
+CLI 跑得顺了之后，下一步：**把它接到你的真实工作流程里**。MCP server 集成、CI 自动化、cost / observability。这节之后，CLI 不只是你个人的工具，而是 team 工作流的一部分。
 
 ## 📌 学习目标
 
@@ -40,7 +40,7 @@ CLI 跑得顺了之后，下一步：**把它接到你的真实工作流程里**
 
 成功标准：开新 PR，1-2 分钟内 PR 出现 review comment。
 
-> 起点：Anthropic 官方有 [`claude-code-action`](https://github.com/anthropics/claude-code-action)（GitHub Actions 整合）；Codex 有 GitHub App 跟 CLI 两种模式。
+> 起点：Anthropic 官方有 [`claude-code-action`](https://github.com/anthropics/claude-code-action)（GitHub Actions 集成）；Codex 有 GitHub App 跟 CLI 两种模式。
 
 ### 动手练习 CLI-11：Cost tracking
 跑你日常的一个 task，**先预估** token 用量，再实际跑、查 token usage。差距通常很大（多半你低估）。
@@ -68,7 +68,7 @@ CLI 跑得顺了之后，下一步：**把它接到你的真实工作流程里**
 
 ---
 
-### CI 整合 patterns
+### CI 集成 patterns
 
 #### [anthropics/claude-code-action](https://github.com/anthropics/claude-code-action)
 官方 GitHub Action 范本。PR review、issue triage、自动 fix。
@@ -130,5 +130,5 @@ CLI 跑得顺了之后，下一步：**把它接到你的真实工作流程里**
    - Stage 7 写自己的 multi-agent system
 
 3. **走 specialized branch**（把 CLI 应用在特定领域）
-   - 研究人员 / 开发人员 / 知识工作者 / 教师 / 日常使用者
+   - 研究人员 / 开发人员 / 知识工作者 / 教师 / 日常用户
    - 各 branch 都会用到 Track A 学的东西

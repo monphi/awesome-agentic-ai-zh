@@ -133,7 +133,7 @@ cd awesome-agentic-ai-zh
 - **Part 1（Stage 0-2）：基础与 LLM 入门** — Python / git / API、什么 LLLM、怎么设计 prompt
 - **Part 2（Stage 3-4）：构建你的 Agent** — 从 tool use 进化到 agent，学主流 framework
 - **Part 3（Stage 5）：Claude Code 生态** — MCP / Skills / Plugins，这是整条路线的核心
-- **Part 4（Stage 6-7）：进阶整合** — memory / RAG / multi-agent 协作
+- **Part 4（Stage 6-7）：进阶集成** — memory / RAG / multi-agent 协作
 
 走完主干（14-19 周）后，依你的身份挑一条延伸路线继续走。
 
