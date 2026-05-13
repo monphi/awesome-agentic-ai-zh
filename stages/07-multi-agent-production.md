@@ -1,4 +1,4 @@
-# Stage 7 — Multi-Agent · Production
+# Stage 7 — Multi-Agent · 進階應用
 
 > **繁體中文** | [简体中文](./07-multi-agent-production.zh-Hans.md) | [English](./07-multi-agent-production.en.md)
 
@@ -6,17 +6,23 @@
 
 > 💡 用語密度高（multi-agent / handoff / eval / observability / guardrails⋯）→ 翻 [`resources/glossary.md` §4 + §6](../resources/glossary.md#4-multi-agent)。
 
-> 📋 **本章組成**：〔Multi-Agent · Production 是什麼（先定位）+ Discipline lineage〕→ 學習目標 → 進入條件 → 必修閱讀 → Harness Engineering（**8 個核心元件含 Cost/Latency**）→ 動手練習（含練習 6 Cost Optimization）→ **Agent Benchmark Landscape + Berkeley Reward-Hacking 警告（2026）** → 常用工具推薦 → 精選 Projects → 自我檢查  
+> 📋 **本章組成**：〔Multi-Agent · 進階應用 是什麼（先定位）+ Discipline lineage + 何時用 multi-agent〕→ 學習目標 → 進入條件 → 必修閱讀 → Harness Engineering（**8 個核心元件含 Cost/Latency**）→ 動手練習（含練習 6 Cost Optimization）→ **Agent Benchmark Landscape + Berkeley Reward-Hacking 警告（2026）** → 常用工具推薦 → 精選 Projects → 自我檢查  
 > 🔑 **關鍵名詞**：見 [`resources/glossary.md` §4 + §6](../resources/glossary.md#4-multi-agent)（multi-agent / orchestration / handoff / eval / observability / harness）
 
-最後一個階段。你正從「我會做 agent」走向「我能在 production 跑起來，多個 agent 協作、有 eval、有 observability、會 deploy」。
+最後一個階段。你正從「我會做 agent」走向「我能讓 agent **真的給人穩定用**——多個 agent 協作、有 eval、有 observability、會 deploy」。**「進階應用 / production」 ≠ enterprise scale**——只要 agent 能穩定產出 + 給別人跑、就算進入這 stage 範圍。
 
-## 🎯 Multi-Agent · Production 是什麼（先定位）
+## 🎯 Multi-Agent · 進階應用 是什麼（先定位）
 
-**Multi-Agent · Production = 多 agent 協作 + 把 agent 從 prototype 推到 production 的工程學科**。本 stage 跟前面 stage 的分工：
+**本 stage = 多 agent 怎麼協作 + 把 agent 從 prototype 推到能穩定給人用的程度**。三句話釐清範圍：
+
+- **不是只學 framework**——Stage 4 已教 framework 怎麼挑
+- **不一定要 enterprise scale**——只要 agent 能讓別人用、就算 "production"
+- **核心是 harness engineering**——8 個 runtime 元件 + eval + observability + cost / latency 控制
+
+**跟前後 stage 的分工**：
 
 - **Stage 4** = 單 agent framework 怎麼挑、ReAct / Plan-Execute 等 pattern
-- **本 stage** = **多 agent 協作** + **harness engineering**（production runtime 工程）+ **deploy / observability / eval**
+- **本 stage** = **多 agent 協作** + **harness engineering**（runtime 工程）+ **deploy / observability / eval**
 
 **Discipline lineage**（你現在在第 3 層 = 最上層）：
 
@@ -24,13 +30,13 @@
 |---|---|---|---|
 | 1 | **Prompt Engineering** | 單次 LLM call 怎麼問才準 | [Stage 2](02-prompt-engineering.md) |
 | 2 | **Context Engineering** | 跨多次 call 怎麼動態組 prompt | [Stage 6](06-memory-rag.md) |
-| **3** | **Harness Engineering**<br>（**本 stage**） | **把多個 LLM call 包成 production runtime** | **本 stage** |
+| **3** | **Harness Engineering**<br>（**本 stage**） | **把多個 LLM call 包成可以給人跑的 runtime** | **本 stage** |
 
 **本 stage 3 個 problem domain**：
 
 1. **Multi-agent 協作** — debate / planner-executor / peer review / handoff / supervisor-worker pattern
 2. **Harness Engineering** — agent loop / tool registry / context manager / safety / retry / telemetry / eval / cost（8 個 component、下面詳述）
-3. **Production** — eval harness / observability / cost & latency 優化 / deploy
+3. **進階應用**（production-grade）— eval harness / observability / cost & latency 優化 / deploy
 
 **跟 Stage 5 的分工**（避免混淆）：
 
@@ -38,6 +44,24 @@
 |---|---|---|
 | **Stage 5.5 Subagents** | Claude Code 原生 subagent 機制（markdown-based、不寫程式）| 通用 multi-agent framework（autogen / crewAI / langgraph、跨 vendor）|
 | **Stage 5.6 Claude Code source** | Claude Code source 解剖（reference harness case study）| Harness engineering 通則（discipline-level、不綁特定 vendor）|
+
+### ⚠ 但你真的需要 multi-agent 嗎？
+
+**Multi-agent 不是 default、是 last resort**。**Anthropic 跟 Cognition 兩家 frontier lab 在 2024-2025 都明白寫過：90% 用例其實不該用 multi-agent**——硬上會付 **3-10× token、debug 困難、context fragmentation 嚴重**。
+
+| 立場 | 來源 | 核心論點 |
+|---|---|---|
+| **Anthropic** | [Building Effective Agents (2024)](https://www.anthropic.com/engineering/building-effective-agents)、[How we built our multi-agent research system (2025)](https://www.anthropic.com/engineering/built-multi-agent-research-system) | 多數場景 simple workflow + single agent 就夠；multi-agent 只在「**研究型 / 並行探索**」任務真的有幫助 |
+| **Cognition** | [Don't Build Multi-Agents (2025)](https://cognition.ai/blog/dont-build-multi-agents) | multi-agent 的 context fragmentation 嚴重、shared state 維護痛苦；先窮盡 single-agent + long-context 才考慮 |
+
+**4 個明確訊號**才上 multi-agent（詳見 [Stage 4 §什麼時候真的需要 multi-agent](04-agent-frameworks.md#什麼時候真的需要-multi-agent不要硬上)）：
+
+1. **任務天然分解** — 大任務有清楚子步驟、能 step-by-step 完成 → Sequential / Planner-Executor
+2. **Token explosion** — single agent prompt 塞不下所有 tool description / context → Supervisor-Worker
+3. **角色衝突** — 同一個 LLM 既當 writer 又當 critic 會 self-justify → Debate / Peer review
+4. **平行加速** — 3 個 research 子任務同時跑、wall-clock 1/3 → Parallel / Map-Reduce
+
+**4 個信號都不在？** → single agent + 好 prompt + tool use 就夠、別硬上 multi-agent。**本 stage 的 harness engineering 部分（8 個元件 / eval / observability）即使你最後用 single agent 也都會用到**——所以即使你決定不走 multi-agent、本 stage 仍是必修。
 
 ## 📌 學習目標
 

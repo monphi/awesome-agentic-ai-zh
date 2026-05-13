@@ -62,7 +62,14 @@
 
 ### 什麼時候**真的**需要 multi-agent（不要硬上）
 
-**Multi-agent 不是 default、是 last resort**。Anthropic 在「Building Effective Agents」直接講過：**90% 場景 single agent + 好 prompt + tool use 就夠**。需要 multi-agent 通常是這 4 個信號之一：
+**Multi-agent 不是 default、是 last resort**。**Anthropic 跟 Cognition 兩家 frontier lab 在 2024-2025 都明白寫過：90% 用例其實不該用 multi-agent**——硬上會付 **3-10× token、debug 痛苦、context fragmentation 嚴重**。
+
+| 立場 | 來源 | 核心論點 |
+|---|---|---|
+| **Anthropic** | [Building Effective Agents (2024)](https://www.anthropic.com/engineering/building-effective-agents)、[How we built our multi-agent research system (2025)](https://www.anthropic.com/engineering/built-multi-agent-research-system) | 多數場景 simple workflow + single agent 就夠；multi-agent 只在「**研究型 / 並行探索**」任務真的有幫助 |
+| **Cognition** | [Don't Build Multi-Agents (2025)](https://cognition.ai/blog/dont-build-multi-agents) | multi-agent 的 context fragmentation 嚴重、shared state 維護痛苦；先窮盡 single-agent + long-context 才考慮 |
+
+需要 multi-agent 通常是這 4 個信號之一：
 
 | 信號 | 描述 | 對應 pattern |
 |---|---|---|
@@ -72,6 +79,8 @@
 | **4. 平行加速** | 3 個 research 子任務同時跑、wall-clock 1/3 | Parallel / Map-Reduce 變種 |
 
 **4 個信號都不在？** → single agent + 好 prompt + tool use 就夠。**硬上 multi-agent 會付 3-10x token、debug 痛苦、其實不會比較準**。
+
+> 💡 **後續閱讀**：到 [Stage 7 §但你真的需要 multi-agent 嗎？](07-multi-agent-production.md#-但你真的需要-multi-agent-嗎) 會再帶 production 視角的決策——本節是設計階段的決策、那邊是 deploy 前的最後一次回頭檢查。
 
 ### Multi-agent 經典 pattern（按複雜度排序）
 
