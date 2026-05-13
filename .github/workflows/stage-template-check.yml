@@ -9,6 +9,9 @@ on:
       - 'stages/**.md'
   workflow_dispatch:
 
+permissions:
+  contents: read  # explicit minimal permission
+
 jobs:
   template:
     name: Validate stage template structure

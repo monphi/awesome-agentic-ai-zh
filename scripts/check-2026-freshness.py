@@ -83,7 +83,12 @@ def scan_file(
     rel = path.relative_to(repo_root).as_posix()
     for override in cfg.get('exclude_files_pattern_specific', []):
         if fnmatch(rel, override.get('file', '')):
-            window = override.get('skip_patterns_with_context', window)
+            # Accept both new (qualifier_window) and legacy (skip_patterns_with_context)
+            # field names for backward compat
+            window = override.get(
+                'qualifier_window',
+                override.get('skip_patterns_with_context', window),
+            )
             break
 
     # Check stale_patterns

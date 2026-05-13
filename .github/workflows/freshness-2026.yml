@@ -18,6 +18,9 @@ on:
         type: choice
         options: ['false', 'true']
 
+permissions:
+  contents: read  # explicit minimal permission
+
 jobs:
   freshness:
     name: Detect stale model references

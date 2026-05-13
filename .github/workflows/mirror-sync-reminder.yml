@@ -39,7 +39,10 @@ jobs:
 
       - name: Comment on PR if gap detected
         if: steps.detect.outputs.gap_detected == 'true'
-        uses: marocchino/sticky-pull-request-comment@v2
+        # Pinned to v2.9.0 (specific release tag) — supply chain risk mitigation
+        # vs floating @v2. Upgrade by reviewing release notes + bumping tag.
+        # For tighter security (SHA pin), see: https://github.com/marocchino/sticky-pull-request-comment/releases
+        uses: marocchino/sticky-pull-request-comment@v2.9.0
         with:
           # `header` makes the comment sticky — re-running the workflow
           # updates the same comment instead of creating duplicates.
@@ -48,7 +51,7 @@ jobs:
 
       - name: Delete comment if gap resolved
         if: steps.detect.outputs.gap_detected == 'false'
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v2.9.0
         with:
           header: mirror-sync
           delete: true

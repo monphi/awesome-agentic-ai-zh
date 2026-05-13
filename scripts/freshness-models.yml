@@ -66,11 +66,12 @@ stale_patterns:
     note: 'Early OpenAI reasoning preview (Sep 2024)'
 
 # Stale date-bound framing — 時間性過時用詞
+# 注意：用 \s* 而不是字面 space、因為中文常寫 "2025年" 沒空格
 stale_date_phrases:
-  - pattern: '2025 (年|下半年)?(才|新|剛).*?(發表|釋出|出|推出|公布)'
+  - pattern: '2025\s*(年|下半年)?\s*(才|新|剛).*?(發表|釋出|出|推出|公布)'
     note: '"newly released in 2025" framing (now historical in 2026)'
 
-  - pattern: '2024 (剛|新|最新).*?(發表|釋出|推出)'
+  - pattern: '2024\s*(剛|新|最新).*?(發表|釋出|推出)'
     note: '"newly released in 2024" framing (now historical in 2026)'
 
   - pattern: '剛發表|剛推出|剛釋出|新發表|甫推出'
@@ -89,7 +90,7 @@ exclude_files:
 exclude_files_pattern_specific:
   # Stage 6's reasoning lineage table is supposed to mention R1 as predecessor
   - file: 'stages/06-memory-rag.md'
-    skip_patterns_with_context: 5  # widen qualifier window for this file
+    qualifier_window: 5  # widen qualifier search to ±5 lines for this file (default ±2)
 
 # Context window — how many lines around a match to check for qualifier terms
 qualifier_context_lines: 2

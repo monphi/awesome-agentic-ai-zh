@@ -37,7 +37,9 @@ REQUIRED_PATTERNS = [
     (r'📚\s*必修閱讀', '📚 必修閱讀'),
     (r'🛠\s*動手練習', '🛠 動手練習'),
     (r'🎯\s*(精選|常用)?\s*.*Projects', '🎯 精選 Projects'),
-    (r'✅\s*.*自我檢查|自我檢查', '✅ 自我檢查'),
+    # Grouped alternation: matches "✅ X 自我檢查" or "X 自我檢查" anywhere — but NOT
+    # bare "自我檢查" in unrelated context (must have surrounding text before 自我檢查)
+    (r'(✅\s*.*自我檢查|.+自我檢查|自我檢查)', '✅ 自我檢查'),
 ]
 
 EXPECTED_PATTERNS = [

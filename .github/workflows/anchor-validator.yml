@@ -13,6 +13,9 @@ on:
     - cron: '0 4 1 * *'
   workflow_dispatch:
 
+permissions:
+  contents: read  # explicit minimal permission (read-only repo content)
+
 jobs:
   anchors:
     name: Validate internal cross-file anchors
