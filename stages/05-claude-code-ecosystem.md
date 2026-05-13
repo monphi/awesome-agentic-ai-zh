@@ -445,6 +445,28 @@ pip install mcp
 | 適合 | 跨 LLM provider 的 production system | 已 commit Claude Code 的工程團隊 |
 | 學習曲線 | 高（框架抽象 + async） | 低（寫 markdown）|
 
+### 各家 CLI / SDK 的 multi-agent 機制現況（2025 後段）
+
+很多人以為 multi-agent CLI 是 Anthropic / OpenAI / Google 三家標配——但實際上目前只有 **Claude Code 有完整 native multi-agent stack**。Codex CLI / Gemini CLI / Cursor 都還是 single-agent，要 multi-agent 得自己用 SDK 或 framework 寫。
+
+| 平台 | Subagent | Agent team | Background agent | 機制 |
+|---|:---:|:---:|:---:|---|
+| **Claude Code**（CLI） | ✅ | ✅ | ✅ | `.claude/agents/<name>.md` + Task tool（subagent）+ [agent teams](https://docs.claude.com/en/docs/claude-code/agent-teams) + [agent view / background](https://docs.claude.com/en/docs/claude-code/agent-view) |
+| **OpenAI Codex CLI** | ❌ | ❌ | ❌ | `AGENTS.md` 只是 **single-agent context file**（類似 CLAUDE.md），**不是 subagent 系統** |
+| **Google Gemini CLI** | ❌ | ❌ | ❌ | `GEMINI.md` 只是 context；無 subagent / multi-agent feature |
+| **Cursor**（IDE-coupled） | ❌ | ❌ | ❌ | 單一 Cursor Agent；queued messages 是 sequential、非 parallel |
+| **OpenAI Agents SDK**<br>（programmatic、非 CLI） | ⚠️ Handoffs + agents-as-tools | ❌ | ❌ | 純 Python SDK、不是 CLI；handoff pattern 接近 Claude subagent 但要寫 code |
+| **Framework path**<br>（Stage 4） | LangGraph / CrewAI / AutoGen | ✅ 自己 wire | 部分 | 跨 LLM provider、Python orchestration、見 [Stage 4](04-agent-frameworks.md) |
+
+**現況解讀**：
+
+- 想用 **CLI** 玩 multi-agent → 目前只有 Claude Code 有 native 支援（**本節主題**）
+- 想 **跨 provider / 跨 LLM** → 走 Stage 4 framework path
+- 想 **OpenAI 生態 + 多 agent** → 用 OpenAI Agents SDK 寫 handoff pattern（programmatic、非 CLI）
+- 想 **完全自己控** → 走 [Stage 5.6 Harness Internals](#56--harness-internalsagent-runtime-的內部結構-track-b-必看)（讀 SDK source、自己 wire 多 agent）
+
+→ 本節剩下內容都聚焦在 **Claude Code subagent**。其他平台的進展請追蹤各家 changelog（Codex / Gemini / Cursor 都還在 single-agent + MCP 階段、可能 2026 後段才會跟進）。
+
 ### 學習目標
 
 - 講得出 subagent 跟 skill / MCP server 的差別（**subagent ≠ skill**：skill 是行為 prompt，subagent 是**另一個 Claude instance with isolated context**）
@@ -468,39 +490,14 @@ pip install mcp
 
 ### 精選 Projects
 
-#### [anthropics/anthropic-cookbook](https://github.com/anthropics/anthropic-cookbook) ⭐ 官方 canonical reference
+4 個項目一張表搞定。**挑入口看「適合誰」、想深入點連結看 repo**。
 
-| 欄位 | 內容 |
-|---|---|
-| 語言 | Python（Jupyter notebook） |
-| License | MIT |
-| 推薦度 | ⭐⭐⭐⭐⭐ |
-
-**教什麼**：Anthropic 官方多個 chapter-length multi-agent 範例。**`customer_service_agent`** 是 orchestrator-workers pattern 的 canonical reference；**`computer_use_demo`** 示範 Claude 操作螢幕的多 agent setup。
-
-**適合誰**：所有 Stage 5.5 完成後想看「production-grade 怎麼長」的人。本 stage 練習是 illustrative、cookbook 是 production reference。
-
----
-
-#### [wshobson/agents](https://github.com/wshobson/agents) ⭐ subagent pattern canonical
-
-**教什麼**：把 subagent 跟 skill 組合成 production workflow 的 pattern collection。看 `.claude/agents/` 目錄結構、命名 convention、跨 agent handoff 寫法。
-
-**適合誰**：寫過自己 1-2 個 subagent 之後、想看「真實 team 怎麼用」的範本。
-
----
-
-#### [obra/superpowers](https://github.com/obra/superpowers) ⭐ subagent + skill 整合 production
-
-**教什麼**：（在 Stage 5.3 已介紹）整套 production-ready skill collection。看裡面**怎麼把 skill 跟 subagent 混搭**——什麼任務歸 skill（行為 prompt）、什麼歸 subagent（獨立 context）。
-
----
-
-#### [Anthropic Claude Code 官方 plugins 範本](https://github.com/anthropics/claude-plugins-official)
-
-**教什麼**：（在 Stage 5.4 已介紹）官方 plugin marketplace。**注意每個 plugin 是怎麼把 subagent + skill + slash command 打包**——subagent definition 通常在 `agents/` 子目錄裡。
-
----
+| Project | ⭐ | 適合誰 | 為什麼推薦 / 備註 |
+|---|---|---|---|
+| [anthropics/anthropic-cookbook](https://github.com/anthropics/anthropic-cookbook) ⭐ 官方 | ⭐⭐⭐⭐⭐ | 5.5 完成後想看「production-grade 怎麼長」 | Anthropic 官方 chapter-length 範例。**`customer_service_agent`** = orchestrator-workers canonical；**`computer_use_demo`** = Claude 操作螢幕 multi-agent setup。Python / Jupyter notebook、MIT |
+| [wshobson/agents](https://github.com/wshobson/agents) ⭐ subagent canonical | ⭐⭐⭐⭐⭐ | 寫過 1-2 個 subagent 想看真實 team 範本 | 50+ subagent definition 的 production workflow pattern collection。**看 `.claude/agents/` 目錄結構 + 命名 convention + 跨 agent handoff 寫法** |
+| [obra/superpowers](https://github.com/obra/superpowers) | ⭐⭐⭐⭐ | 想看 skill + subagent 混搭實作 | 在 Stage 5.3 已介紹。**重點看「什麼任務歸 skill、什麼歸 subagent」決策**——production 範本 |
+| [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) 官方 | ⭐⭐⭐⭐ | 看 plugin 怎麼打包 subagent | 在 Stage 5.4 已介紹。每個 plugin 內 `agents/` 子目錄是 subagent definition、看打包方式 |
 
 > 💡 **Subagent 雖然強、不要無腦用**：每個 subagent invoke 都是一個新的 Claude inference call、有 token cost + latency。**簡單 query 用 skill（行為 prompt）即可、不必 spawn subagent**。Subagent 的甜蜜點是：(1) 任務 context 大、會吃光主 session 的 window（譬如 read 整個 codebase），(2) 任務跟主 session 邏輯獨立、隔離 context 有助 main flow，(3) 多 subagent 平行（research / write / critic）能省 wall-clock 時間。
 
