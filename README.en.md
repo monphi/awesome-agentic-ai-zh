@@ -161,6 +161,8 @@ After the main path (14-19 weeks), pick a branch.
 
 The most important advice: **don't skip the hands-on exercises**. Each stage's exercises are "you can't learn this without doing it" — skim past them and you'll get stuck later.
 
+> 🎓 **How to actually use the exercises**: the `starter.py` in each exercise folder is a **complete solution**, not a TODO skeleton. If you clone, `cat starter.py`, and run `python test.py` to all-green, you'll think "I learned it" — but you haven't written a single line. **Correct learning loop**: `mv starter.py starter_reference.py`, look at signatures (not bodies), write your own, peek at the reference only after 20 min stuck. Full method + per-stage time budgets + escalation order in [`docs/HOW_TO_USE.md`](docs/HOW_TO_USE.md).
+
 Ready? [Start at Stage 0](stages/00-foundations.en.md).
 
 ---
