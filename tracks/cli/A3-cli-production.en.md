@@ -17,15 +17,15 @@ After your CLI runs smoothly, the next step: **wire it into your real workflow**
 
 ## 📚 Required Reading
 
-1. [**Stage 5.2 — MCP (Model Context Protocol)**](../../stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol-foundation) — MCP concept and basics
+1. [**Stage 5.2 — MCP (Model Context Protocol)**](../../stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol--foundation) — MCP concept and basics
 2. [**Anthropic — Prompt Caching**](https://www.anthropic.com/news/prompt-caching) — the key trick for 90% cost reduction
-3. [**Stage 7 — Observability section**](../../stages/07-multi-agent-production.en.md#observability) — langfuse / Helicone / weave
+3. [**Stage 7 — Observability section**](../../stages/07-multi-agent-production.en.md#exercise-3-observability) — langfuse / Helicone / weave
 4. [**`resources/cli-agents-guide.en.md`** "Common pitfalls"](../../resources/cli-agents-guide.en.md) — most common production issues with CLIs
 
 ## 🛠 Hands-on Exercises
 
 ### Exercise CLI-9: MCP server connected to CLI
-Following [Stage 5.2 Exercise: MCP client](../../stages/05-claude-code-ecosystem.en.md#hello-x), connect at least one useful MCP server to your CLI:
+Following [Stage 5.2 Exercise: MCP client](../../stages/05-claude-code-ecosystem.en.md#hands-on-exercises), connect at least one useful MCP server to your CLI:
 - `filesystem` server → let the CLI read files outside its default scope
 - `github` server → let it read PRs / issues directly
 - Custom server → connect your internal API / DB
@@ -45,13 +45,83 @@ Success: open a new PR, see a review comment within 1-2 minutes.
 ### Exercise CLI-11: Cost tracking
 Run a daily task. **Predict** the token usage first, then actually run it and check the usage. The gap is usually big (you typically underestimate).
 - Math: input tokens + output tokens × model price each
-- Connect langfuse or Helicone ([Stage 7 Observability](../../stages/07-multi-agent-production.en.md#observability)) for tracing
+- Connect langfuse or Helicone ([Stage 7 Observability](../../stages/07-multi-agent-production.en.md#exercise-3-observability)) for tracing
 - Observe: which sub-task consumes the most tokens? Are you sending unnecessary long context?
 
 ### Exercise CLI-12: Skill / plugin team sharing
 Package your `.claude/commands/` and `CLAUDE.md` into a plugin, publish to internal marketplace or GitHub. Teammates `claude plugin install` and get the same workflow.
 - Skill / plugin details in [Stage 5.3 + 5.4](../../stages/05-claude-code-ecosystem.en.md)
 - Template: [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official)
+
+## 🧭 Advanced Concepts in Daily CLI Work (6 Playbooks)
+
+Track A users are **already using** [Stage 7.5 advanced concepts](../../stages/07.5-advanced-agentic-concepts.en.md) — they just have not named them yet. These 6 playbooks do not teach the concepts; they **tell you "in this situation, do this"** — each in ≤ 6 lines. **Want the deeper theory → go to Stage 7.5.**
+
+> 📌 **Rule**: after each playbook, ask yourself "will I do something differently in the next PR?" **Yes** → applied; **No** → skip to the next one.
+
+### 📋 Playbook 1: Scope unclear, agent overreaches
+
+- **When**: You send Codex/Gemini on a sweep and are not sure whether it will silently touch unrelated files (the F11/F12 kind of failure)
+- **Do**: At the top of the brief, state "change X / do not cross Y" explicitly; add a path filter to the acceptance preset
+- **Concepts**: Work Boundary + Hierarchical Task Decomposition · 📊 See [concept-cluster](../../resources/diagrams/concept-cluster.en.png), Service × orchestration cluster
+- **Read more**:
+  - [HumanLayer — Writing a good CLAUDE.md](https://www.humanlayer.dev/blog/writing-a-good-claude-md) — under 300 lines; hooks enforce 100% vs CLAUDE.md at 70%
+  - [Anthropic — How Anthropic teams use Claude Code (PDF)](https://www-cdn.anthropic.com/58284b19e702b49db9302d5b6f135ad8871e7658.pdf) — real-world delegation rules
+  - Internal: [Stage 7.5 §🧭 work boundary stack](../../stages/07.5-advanced-agentic-concepts.en.md#-core-mental-model-the-four-layer-work-boundary)
+
+### 📋 Playbook 2: Multi-agent parallel runs, results conflict
+
+- **When**: Claude planner + 2-3 Codex agents run in parallel and the merge ends up with conflicts / drift
+- **Do**: Give each agent its own commit; use a reviewer pattern to catch drift (not one giant merge); standardize the brief format + `result.json` schema
+- **Concepts**: Contract Hand-offs + Speculative Parallel · 📊 See [concept-cluster](../../resources/diagrams/concept-cluster.en.png), Service × orchestration + Types × orchestration
+- **Read more**:
+  - [Addy Osmani — Code Agent Orchestra](https://addyosmani.com/blog/code-agent-orchestra/) — orchestrator mindset, not a pair-programmer mindset
+  - [Daniel Vaughan — Running Multiple Codex Agents Parallel](https://codex.danielvaughan.com/2026/04/18/running-multiple-codex-agents-parallel-orchestration/) — worktree-per-agent
+  - [agent-collab-skills](https://github.com/WenyuChiou/agent-collab-skills) `agent-task-splitter` + `agent-output-reconciler`
+
+### 📋 Playbook 3: Reviewing agent output
+
+- **When**: An agent finished the PR, you do not want to merge it blindly, and human review cannot keep up with the throughput
+- **Do**: Add an LLM-as-judge subagent for automatic evaluation (binary pass/fail); humans only spot-check edge cases; run the acceptance-gate preset before commit
+- **Concepts**: Agent-as-Judge + Plan-Act-Reflect · 📊 See [reading-decision-tree](../../resources/diagrams/reading-decision-tree.en.png), blue eval branch
+- **Read more**:
+  - [Hamel Husain — LLM-as-a-Judge: Complete Guide](https://hamel.dev/blog/posts/llm-judge/) — why binary beats Likert
+  - [Hamel Husain — Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/) — evals as production discipline
+  - [Simon Willison — Sub-agents in Claude Code](https://simonwillison.net/2025/Oct/11/sub-agents/) — fresh-context dispatch pattern
+
+### 📋 Playbook 4: Running CLI agent in CI
+
+- **When**: You wire `codex exec` / `claude --print` into GitHub Actions, cannot require a human to hit yes every time, and bandwidth constraints mean you cannot always use Opus
+- **Do**: Use layered autonomy (preset auto-runs / commit requires review / push requires human sign-off); set a fallback cheaper model (if Opus is down, fall back to Haiku)
+- **Concepts**: Autonomy Gradients + Graceful Degradation · 📊 See [concept-cluster](../../resources/diagrams/concept-cluster.en.png), Config × governance cluster
+- **Read more**:
+  - [Anthropic — How Anthropic teams use Claude Code (PDF)](https://www-cdn.anthropic.com/58284b19e702b49db9302d5b6f135ad8871e7658.pdf) §"when subagents pay off"
+  - [Anthropic Engineering — Equipping Agents with Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) §skills in CI
+  - Internal: [Stage 5.5 Subagents](../../stages/05-claude-code-ecosystem.en.md#55--subagents-claude-codes-native-multi-agent-mechanism--2025-new-feature) + Exercise CLI-10 (above in this stage)
+
+### 📋 Playbook 5: Controlling cost
+
+- **When**: You use Codex for a large batch of work, the monthly API bill is getting out of control, and you want to stay inside budget
+- **Do**: Set `max_cost_usd` in `plan.yml`; use a cheap model (Haiku) for exploration and an expensive model (Opus) only for polish; turn on prompt caching (90% discount); automate QA instead of spending human time
+- **Concepts**: Cost-aware Budget Gates + Throughput-Merge Philosophy · 📊 See [concept-cluster](../../resources/diagrams/concept-cluster.en.png), Config × resilience cluster
+- **Read more**:
+  - [Simon Willison — Sub-agents](https://simonwillison.net/2025/Oct/11/sub-agents/) — Haiku for explore mode
+  - [Anthropic — Prompt Caching](https://www.anthropic.com/news/prompt-caching) — 90% cost reduction
+  - Internal: this stage's **Exercise CLI-11** (token tracking + langfuse integration)
+
+### 📋 Playbook 6: Hardening workflow, preventing drift
+
+- **When**: You wrote rules in `CLAUDE.md` / `SKILL.md` but nobody enforces them, or you added a preset YAML and do not know whether it actually works
+- **Do**: Intentionally break one rule and run the acceptance gate to see whether it catches it (chaos test); treat `docs/` as the single source of truth and keep `CLAUDE.md` as an entry map only
+- **Concepts**: Failure Injection + System of Record · 📊 See [failure-lifecycle](../../resources/diagrams/failure-lifecycle.en.png) (the F11-F14 evolution loop)
+- **Read more**:
+  - [HumanLayer — Writing a good CLAUDE.md](https://www.humanlayer.dev/blog/writing-a-good-claude-md) — hooks enforce 100% vs CLAUDE.md 70%
+  - [agent-collab-skills — observed-failure-modes.md](https://github.com/WenyuChiou/agent-collab-skills/blob/main/docs/observed-failure-modes.md) — F1-F14 case study
+  - Internal: [Stage 7.5 §🔁 failure-mode lifecycle](../../stages/07.5-advanced-agentic-concepts.en.md#-failure-mode-lifecycle-how-f11-f14-evolved)
+
+---
+
+→ **6 playbooks = a bridge from 6 triggers to 12 concepts and 18 reading sources**. Want the underlying theory / the full set of 12 concepts / all 8 cross-vendor principles → [Stage 7.5](../../stages/07.5-advanced-agentic-concepts.en.md).
 
 ## 🎯 Curated Projects
 
@@ -61,7 +131,7 @@ Package your `.claude/commands/` and `CLAUDE.md` into a plugin, publish to inter
 
 #### [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) ⭐⭐⭐⭐⭐
 ★ 85k+ — Official reference servers. filesystem, github, sqlite, git, time, fetch, memory, sequential-thinking.
-> See [Stage 5.2](../../stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol-foundation).
+> See [Stage 5.2](../../stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol--foundation).
 
 #### [wong2/awesome-mcp-servers](https://github.com/wong2/awesome-mcp-servers)
 Community MCP server catalog. 150+ servers categorized.
@@ -83,14 +153,14 @@ Official GitHub Action template. PR review, issue triage, auto-fix.
 
 #### [langfuse/langfuse](https://github.com/langfuse/langfuse) ⭐⭐⭐⭐⭐
 ★ 26k+ — Open-source LLM observability. Trace, cost, sessions in one place.
-> See [Stage 7 Observability](../../stages/07-multi-agent-production.en.md#observability).
+> See [Stage 7 Observability](../../stages/07-multi-agent-production.en.md#exercise-3-observability).
 
 #### [Helicone](https://github.com/Helicone/helicone) ⭐⭐⭐⭐
 ★ 5k+ — Proxy-based monitoring. Just change `base_url` and you get logging + caching.
 
 #### [promptfoo/promptfoo](https://github.com/promptfoo/promptfoo) ⭐⭐⭐⭐⭐
 ★ 20k+ — Eval framework. Run regression tests before promoting CLI workflows to production.
-> See [Stage 7 Eval](../../stages/07-multi-agent-production.en.md#evaluation-frameworks).
+> See [Stage 7 Eval](../../stages/07-multi-agent-production.en.md#exercise-2-eval).
 
 ---
 

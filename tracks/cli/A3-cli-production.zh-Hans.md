@@ -19,13 +19,13 @@ CLI 跑得顺了之后，下一步：**把它接到你的真实工作流程里**
 
 1. [**Stage 5.2 — MCP（Model Context Protocol）**](../../stages/05-claude-code-ecosystem.zh-Hans.md#52--mcpmodel-context-protocol-基础) — MCP 概念跟基础
 2. [**Anthropic — Prompt Caching**](https://www.anthropic.com/news/prompt-caching) — 90% cost reduction 的关键技巧
-3. [**Stage 7 — Observability section**](../../stages/07-multi-agent-production.zh-Hans.md#observability) — langfuse / Helicone / weave
+3. [**Stage 7 — Observability section**](../../stages/07-multi-agent-production.zh-Hans.md#练习-3observability) — langfuse / Helicone / weave
 4. [**`resources/cli-agents-guide.zh-Hans.md`** “常见坑”]../../resources/cli-agents-guide.zh-Hans.md) — production 用 CLI 最常踩的问题
 
 ## 🛠 动手练习
 
 ### 动手练习 CLI-9：MCP server 接 CLI
-照 [Stage 5.2 练习：MCP client](../../stages/05-claude-code-ecosystem.zh-Hans.md#hello-x) 的步骤，把至少一个有用的 MCP server 接到你的 CLI：
+照 [Stage 5.2 练习：MCP client](../../stages/05-claude-code-ecosystem.zh-Hans.md#动手练习) 的步骤，把至少一个有用的 MCP server 接到你的 CLI：
 - `filesystem` server → 让 CLI 在指定目录外也能读文件
 - `github` server → 让 CLI 直接读 PR / issue
 - 自架 server → 接你的 internal API / DB
@@ -45,13 +45,83 @@ CLI 跑得顺了之后，下一步：**把它接到你的真实工作流程里**
 ### 动手练习 CLI-11：Cost tracking
 跑你日常的一个 task，**先预估** token 用量，再实际跑、查 token usage。差距通常很大（多半你低估）。
 - 算式：input tokens + output tokens 各乘以 model 单价
-- 接 langfuse 或 Helicone（[Stage 7 Observability section](../../stages/07-multi-agent-production.zh-Hans.md#observability)）做 trace
+- 接 langfuse 或 Helicone（[Stage 7 Observability section](../../stages/07-multi-agent-production.zh-Hans.md#练习-3observability)）做 trace
 - 观察：哪个 sub-task 花最多 token？是不是有不必要的 long context？
 
 ### 动手练习 CLI-12：Skill / plugin 跨 team 分享
 把你的 `.claude/commands/` 跟 `CLAUDE.zh-Hans.md` 打包成 plugin，发布到内部 marketplace 或 GitHub。Team 其他人 `claude plugin install` 之后就有同样的工作流。
 - Skill / plugin 细节见 [Stage 5.3 + 5.4](../../stages/05-claude-code-ecosystem.zh-Hans.md)
 - 范本：[anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official)
+
+## 🧭 进阶概念在 CLI 日常工作中的应用（6 个 playbooks）
+
+Track A 的人**已经在用** [Stage 7.5 的进阶概念](../../stages/07.5-advanced-agentic-concepts.zh-Hans.md)，只是没给它命名。下面 6 个 playbook 不是教概念，而是**告诉你“什么情境该做什么”**——每个 ≤ 6 行。**想深挖原理 → 进 Stage 7.5。**
+
+> 📌 **规则**：每个 playbook 看完先问自己“下一个 PR 我会做不一样的事吗？”**会** → applied；**不会** → 跳下一个。
+
+### 📋 Playbook 1：任务 scope 不明，agent 越界
+
+- **When**：派 Codex/Gemini 跑 sweep，不确定它会不会擅自改别的档（F11/F12 那种）
+- **Do**：brief 开头明写“动 X / 不能跨 Y”，acceptance preset 加 path filter
+- **Concepts**：Work Boundary + Hierarchical Task Decomposition · 📊 图见 [concept-cluster](../../resources/diagrams/concept-cluster.zh-Hans.png) Service × 编排 cluster
+- **Read more**：
+  - [HumanLayer — Writing a good CLAUDE.md](https://www.humanlayer.dev/blog/writing-a-good-claude-md) — < 300 行，hooks enforce 100% vs CLAUDE.md 70%
+  - [Anthropic — How Anthropic teams use Claude Code (PDF)](https://www-cdn.anthropic.com/58284b19e702b49db9302d5b6f135ad8871e7658.pdf) — 真实 delegation 规范
+  - 内部：[Stage 7.5 §🧭 work boundary stack](../../stages/07.5-advanced-agentic-concepts.zh-Hans.md#-核心-mental-model四层工作边界work-boundary)
+
+### 📋 Playbook 2：多 agent 并行，结果乱
+
+- **When**：Claude planner + 2-3 Codex 并行跑，结果 merge 冲突 / drift
+- **Do**：每个 agent 自己一个 commit，用 reviewer pattern 抓 drift（不是大合一）；brief 统一 task format + result.json schema
+- **Concepts**：Contract Hand-offs + Speculative Parallel · 📊 图见 [concept-cluster](../../resources/diagrams/concept-cluster.zh-Hans.png) Service × 编排 + Types × 编排
+- **Read more**：
+  - [Addy Osmani — Code Agent Orchestra](https://addyosmani.com/blog/code-agent-orchestra/) — orchestrator mindset，不要 pair-programmer 心态
+  - [Daniel Vaughan — Running Multiple Codex Agents Parallel](https://codex.danielvaughan.com/2026/04/18/running-multiple-codex-agents-parallel-orchestration/) — worktree-per-agent
+  - [agent-collab-skills](https://github.com/WenyuChiou/agent-collab-skills) `agent-task-splitter` + `agent-output-reconciler`
+
+### 📋 Playbook 3：Review agent 输出
+
+- **When**：agent 写完 PR，不放心直接 merge，人工 review 跟不上吞吐
+- **Do**：加 LLM-as-judge subagent 自动评（binary pass/fail），人类只 spot-check edge case；commit 前跑 acceptance-gate preset
+- **Concepts**：Agent-as-Judge + Plan-Act-Reflect · 📊 图见 [reading-decision-tree](../../resources/diagrams/reading-decision-tree.zh-Hans.png) 蓝色 eval 分支
+- **Read more**：
+  - [Hamel Husain — LLM-as-a-Judge: Complete Guide](https://hamel.dev/blog/posts/llm-judge/) — 为什么 binary 比 Likert 好
+  - [Hamel Husain — Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/) — eval as production 纪律
+  - [Simon Willison — Sub-agents in Claude Code](https://simonwillison.net/2025/Oct/11/sub-agents/) — fresh context dispatch pattern
+
+### 📋 Playbook 4：在 CI 里跑 CLI agent
+
+- **When**：把 `codex exec` / `claude --print` 接进 GitHub Actions，不能每次都需要人按 yes，带宽限制也不能用 Opus
+- **Do**：分层 autonomy（preset 自动跑 / commit 需审 / push 需人签），设 fallback 便宜 model（Opus 挂了就 fallback Haiku）
+- **Concepts**：Autonomy Gradients + Graceful Degradation · 📊 图见 [concept-cluster](../../resources/diagrams/concept-cluster.zh-Hans.png) Config × 治理 cluster
+- **Read more**：
+  - [Anthropic — How Anthropic teams use Claude Code (PDF)](https://www-cdn.anthropic.com/58284b19e702b49db9302d5b6f135ad8871e7658.pdf) §"when subagents pay off"
+  - [Anthropic Engineering — Equipping Agents with Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) §skills 在 CI
+  - 内部：[Stage 5.5 Subagents](../../stages/05-claude-code-ecosystem.zh-Hans.md#55--subagentsclaude-code-原生-multi-agent-机制-2025-新功能) + 动手练习 CLI-10（本 stage 上方）
+
+### 📋 Playbook 5：控制成本
+
+- **When**：用 Codex 跑大批 work，每月 API 账单失控，想压在 budget 内
+- **Do**：`plan.yml` 设 `max_cost_usd`，便宜 model（Haiku）跑探索 / 贵 model（Opus）只跑 polish；开 prompt caching（90% 折扣）；自动化 QA（不靠人时间）
+- **Concepts**：Cost-aware Budget Gates + Throughput-Merge Philosophy · 📊 图见 [concept-cluster](../../resources/diagrams/concept-cluster.zh-Hans.png) Config × 韧性 cluster
+- **Read more**：
+  - [Simon Willison — Sub-agents](https://simonwillison.net/2025/Oct/11/sub-agents/) — Haiku for Explore 模式
+  - [Anthropic — Prompt Caching](https://www.anthropic.com/news/prompt-caching) — 90% 成本降
+  - 内部：本 stage **动手练习 CLI-11**（token tracking + langfuse 集成）
+
+### 📋 Playbook 6：强化 workflow，防 drift
+
+- **When**：CLAUDE.md / SKILL.md rule 写了但没人 enforce，preset YAML 加了也不知道有没有效
+- **Do**：故意 break 一条 rule 跑 acceptance gate 看抓不抓得到（chaos test）；`docs/` 当 single source，CLAUDE.md 只当 entry map
+- **Concepts**：Failure Injection + System of Record · 📊 图见 [failure-lifecycle](../../resources/diagrams/failure-lifecycle.zh-Hans.png)（F11-F14 进化循环）
+- **Read more**：
+  - [HumanLayer — Writing a good CLAUDE.md](https://www.humanlayer.dev/blog/writing-a-good-claude-md) — hooks enforce 100% vs CLAUDE.md 70%
+  - [agent-collab-skills — observed-failure-modes.md](https://github.com/WenyuChiou/agent-collab-skills/blob/main/docs/observed-failure-modes.md) — F1-F14 case study
+  - 内部：[Stage 7.5 §🔁 failure-mode lifecycle](../../stages/07.5-advanced-agentic-concepts.zh-Hans.md#-failure-mode-lifecyclef11-f14-怎么进化的)
+
+---
+
+→ **6 个 playbook = 6 个 trigger × 12 个 concept × 18 个 reading source 的桥梁**。深挖原理 / 看完整 12 个 concept 跟 8 个 cross-vendor 原则 → [Stage 7.5](../../stages/07.5-advanced-agentic-concepts.zh-Hans.md)。
 
 ## 🎯 精选 Projects
 
@@ -83,14 +153,14 @@ CLI 跑得顺了之后，下一步：**把它接到你的真实工作流程里**
 
 #### [langfuse/langfuse](https://github.com/langfuse/langfuse) ⭐⭐⭐⭐⭐
 ★ 26k+ — open source LLM observability。把 trace、cost、session 都接起来。
-> 详见 [Stage 7 Observability](../../stages/07-multi-agent-production.zh-Hans.md#observability)。
+> 详见 [Stage 7 Observability](../../stages/07-multi-agent-production.zh-Hans.md#练习-3observability)。
 
 #### [Helicone](https://github.com/Helicone/helicone) ⭐⭐⭐⭐
 ★ 5k+ — proxy-based 监控。改 base_url 就有 logging + caching。
 
 #### [promptfoo/promptfoo](https://github.com/promptfoo/promptfoo) ⭐⭐⭐⭐⭐
 ★ 20k+ — eval framework。CLI workflow 升级到 production 前用这个跑回归测试。
-> 详见 [Stage 7 Eval](../../stages/07-multi-agent-production.zh-Hans.md#evaluation-frameworks)。
+> 详见 [Stage 7 Eval](../../stages/07-multi-agent-production.zh-Hans.md#练习-2eval)。
 
 ---
 
@@ -111,7 +181,7 @@ CLI 跑得顺了之后，下一步：**把它接到你的真实工作流程里**
 - [ ] 把你的 CLAUDE.zh-Hans.md / commands 打包过至少一次（即使只有自己用）
 - [ ] 知道什么任务值得加 observability、什么不值得
 
-如果都可以 → **Track A 完整通关**。挑一个 [specialized branch](../../README.zh-Hans.md#️-学习地图两条轨道) 继续走（researcher / developer / teacher / knowledge-worker / everyday-users）。
+如果都可以 → **Track A 完整通关**。挑一个 [specialized branch](../../README.zh-Hans.md#-学习地图两条学习路径) 继续走（researcher / developer / teacher / knowledge-worker / everyday-users）。
 
 如果想再深入“**怎么写自己的 CLI agent**”（不是用现有的）→ 跳到 [Track B Stage 3](../../stages/03-tool-use-and-hello-agent.zh-Hans.md) 开始。Track A 跟 Track B 互补。
 
