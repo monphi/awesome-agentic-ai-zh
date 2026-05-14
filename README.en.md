@@ -99,7 +99,7 @@ The two tracks are **not mutually exclusive** — most people start with A to ge
 | Stage | Topic | Key Content | Time |
 |---|---|---|---|
 | **0** | [Foundations](stages/00-foundations.en.md) | Python · CLI · git · API · JSON | 1-2 wks |
-| **1** | [LLM Basics](stages/01-llm-basics.en.md) | tokens · API · model comparison · local LLM | 1 wk |
+| **1** | [LLM Fundamentals](stages/01-llm-basics.en.md) | tokens · API · model comparison · local LLM | 1 wk |
 | **2** | [Prompt Engineering](stages/02-prompt-engineering.en.md) | system prompts · few-shot · CoT | 1-2 wks |
 
 ### Track A — CLI Power User (use CLIs to get work done)
@@ -118,11 +118,12 @@ The two tracks are **not mutually exclusive** — most people start with A to ge
 
 | Stage | Topic | Key Content | Time |
 |---|---|---|---|
-| **3** ⭐ | [Tool Use & Agent Intro](stages/03-tool-use-and-hello-agent.en.md) | function calling · ReAct · 5 hands-on exercises | 2-3 wks |
+| **3** ⭐ | [Tool Use & Hello Agent](stages/03-tool-use-and-hello-agent.en.md) | function calling · ReAct · 5 hands-on exercises | 2-3 wks |
 | **4** | [Agent Frameworks](stages/04-agent-frameworks.en.md) | LangGraph · AutoGen · CrewAI · Smolagents | 2-3 wks |
 | **5** ⭐⭐ 🔄 | [Claude Code Ecosystem](stages/05-claude-code-ecosystem.en.md) (**Shared Hub**, Track A also studies) | MCP · Skills · Plugins · Subagents | 3-4 wks (Track B view) |
-| **6** | [Memory · RAG · Advanced](stages/06-memory-rag.en.md) | vector DB · long-term memory · contextual retrieval | 2 wks |
-| **7** | [Multi-Agent · Advanced Application](stages/07-multi-agent-production.en.md) | multi-agent orchestration · eval · observability · advanced SDK | 2-4 wks |
+| **6** | [Context Engineering: RAG and Memory](stages/06-memory-rag.en.md) | vector DB · long-term memory · contextual retrieval | 2 wks |
+| **7** | [Multi-Agent · Productionization](stages/07-multi-agent-production.en.md) | multi-agent orchestration · eval · observability · advanced SDK | 2-4 wks |
+| **7.5** | [Advanced Agentic Workflow Concepts](stages/07.5-advanced-agentic-concepts.en.md) (reading map) | work boundary · PAR loop · agent-as-judge · 12 advanced concepts + reading list | 1 wk (no code) |
 | **8** ⭐⭐ 🔄 | [Agent Interfaces](stages/08-agent-interfaces.en.md) (**Shared Hub**, Track A also studies) | Computer Use · Browser Use · Code Sandbox; 2024-2026 frontier | 2-3 wks (Track B view) |
 
 > **Track B total time**: minimum **16-22 weeks**, realistic **5-7 months** (5-8 hr/week part-time)

@@ -84,19 +84,19 @@ cd awesome-agentic-ai-zh
 
 | Stage | 主题 | 关键内容 | 预估时程 |
 |---|---|---|---|
-| **0** | [基础准备](stages/00-foundations.zh-Hans.md) | Python · CLI · git · API · JSON | 1-2 周 |
-| **1** | [LLM 入门](stages/01-llm-basics.zh-Hans.md) | token · API · 各家 LLM 比较 · 本地 LLM | 1 周 |
-| **2** | [Prompt 设计](stages/02-prompt-engineering.zh-Hans.md) | 系统 prompt · few-shot · CoT | 1-2 周 |
+| **0** | [基础准备（Foundations）](stages/00-foundations.zh-Hans.md) | Python · CLI · git · API · JSON | 1-2 周 |
+| **1** | [LLM 基础（LLM Basics）](stages/01-llm-basics.zh-Hans.md) | token · API · 各家 LLM 比较 · 本地 LLM | 1 周 |
+| **2** | [Prompt 设计（Prompt Engineering）](stages/02-prompt-engineering.zh-Hans.md) | 系统 prompt · few-shot · CoT | 1-2 周 |
 
 ### Track A — CLI Power User（想用 CLI 把事情做完）
 
 | Stage | 主题 | 关键内容 | 预估时程 |
 |---|---|---|---|
-| **A1** | [CLI Agent 入门 + 选择](tracks/cli/A1-cli-intro.zh-Hans.md) | 7 个主流 CLI 比较 · 安装 · 第一次跑 | 1 周 |
-| **A2** | [CLI Workflow Patterns](tracks/cli/A2-cli-workflow.zh-Hans.md) | CLAUDE.md · slash command · 多步骤拆解 | 1-2 周 |
-| **A3** | [Integration & Production](tracks/cli/A3-cli-production.zh-Hans.md) | MCP 接 CLI · CI 自动化 · cost / observability | 1-2 周 |
-| **+5** 🔄 | [Stage 5 — Claude Code 生态](stages/05-claude-code-ecosystem.zh-Hans.md)（**共用 hub**）| MCP · Skills · Plugins · Subagents、Track A 必看 5.1-5.4 / 选读 5.5-5.6 | 1-2 周（Track A 视角）|
-| **+8** 🔄 | [Stage 8 — Agent Interfaces](stages/08-agent-interfaces.zh-Hans.md)（**共用 hub**）| Computer Use · Browser Use · Code Sandbox、Track A 视角看 §Track A 怎么用 | 1-2 周（Track A 视角）|
+| **A1** | [选一个 CLI Agent，开始用它做事（CLI Agent Intro & Selection）](tracks/cli/A1-cli-intro.zh-Hans.md) | 7 个主流 CLI 比较 · 安装 · 第一次跑 | 1 周 |
+| **A2** | [建立可重复使用的 CLI 工作流程（CLI Workflow Patterns）](tracks/cli/A2-cli-workflow.zh-Hans.md) | CLAUDE.md · slash command · 多步骤拆解 | 1-2 周 |
+| **A3** | [把 CLI Agent 接进真实工作流程（Integration & Production）](tracks/cli/A3-cli-production.zh-Hans.md) | MCP 接 CLI · CI 自动化 · cost / observability | 1-2 周 |
+| **+5** 🔄 | [Stage 5 — Claude Code 生态系（Claude Code Ecosystem）](stages/05-claude-code-ecosystem.zh-Hans.md)（**共用 hub**）| MCP · Skills · Plugins · Subagents、Track A 必看 5.1-5.4 / 选读 5.5-5.6 | 1-2 周（Track A 视角）|
+| **+8** 🔄 | [Stage 8 — Agent 操作介面（Agent Interfaces）](stages/08-agent-interfaces.zh-Hans.md)（**共用 hub**）| Computer Use · Browser Use · Code Sandbox、Track A 视角看 §Track A 怎么用 | 1-2 周（Track A 视角）|
 
 > **Track A 预估总时程**：含 Stage 0-2（共用基础）+ A1-A3 + **Stage 5 + Stage 8（两个共用 hub）= 约 8-10 周**。核心参考：[`resources/cli-agents-guide.zh-Hans.md`](resources/cli-agents-guide.zh-Hans.md)。
 
@@ -104,12 +104,13 @@ cd awesome-agentic-ai-zh
 
 | Stage | 主题 | 关键内容 | 预估时程 |
 |---|---|---|---|
-| **3** ⭐ | Tool Use & Agent 入門 | function calling · ReAct · 5 个动手练习 | 2-3 周 |
-| **4** | Agent 框架 | LangGraph · AutoGen · CrewAI · Smolagents | 2-3 周 |
-| **5** ⭐⭐ 🔄 | [Claude Code 生态](stages/05-claude-code-ecosystem.zh-Hans.md)（**共用 hub**、Track A 也学）| MCP · Skills · Plugins · Subagents | 3-4 周（Track B 视角）|
-| **6** | [Memory · RAG · 进阶](stages/06-memory-rag.zh-Hans.md) | vector DB · long-term memory · contextual retrieval | 2 周 |
-| **7** | [Multi-Agent · 进阶应用](stages/07-multi-agent-production.zh-Hans.md) | multi-agent orchestration · eval · observability · SDK 进阶 | 2-4 周 |
-| **8** ⭐⭐ 🔄 | [Agent Interfaces](stages/08-agent-interfaces.zh-Hans.md)（**共用 hub**、Track A 也学）| Computer Use · Browser Use · Code Sandbox、2024-2026 frontier | 2-3 周（Track B 视角）|
+| **3** ⭐ | [工具使用与第一个 Agent（Tool Use & Hello Agent）](stages/03-tool-use-and-hello-agent.zh-Hans.md) | function calling · ReAct · 5 个动手练习 | 2-3 周 |
+| **4** | [Agent 框架（Agent Frameworks）](stages/04-agent-frameworks.zh-Hans.md) | LangGraph · AutoGen · CrewAI · Smolagents | 2-3 周 |
+| **5** ⭐⭐ 🔄 | [Claude Code 生态系（Claude Code Ecosystem）](stages/05-claude-code-ecosystem.zh-Hans.md)（**共用 hub**、Track A 也学）| MCP · Skills · Plugins · Subagents | 3-4 周（Track B 视角）|
+| **6** | [上下文管理（Context Engineering）：RAG 与 Memory](stages/06-memory-rag.zh-Hans.md) | vector DB · long-term memory · contextual retrieval | 2 周 |
+| **7** | [多 Agent 系统与稳定运作（Multi-Agent & Production）](stages/07-multi-agent-production.zh-Hans.md) | multi-agent orchestration · eval · observability · SDK 进阶 | 2-4 周 |
+| **7.5** | [进阶 Agentic Workflow 概念（Advanced Agentic Concepts）](stages/07.5-advanced-agentic-concepts.zh-Hans.md)（reading map）| 工作边界 · PAR loop · agent-as-judge · 12 个进阶概念 + reading list | 1 周（不写 code）|
+| **8** ⭐⭐ 🔄 | [Agent 操作介面（Agent Interfaces）](stages/08-agent-interfaces.zh-Hans.md)（**共用 hub**、Track A 也学）| Computer Use · Browser Use · Code Sandbox、2024-2026 frontier | 2-3 周（Track B 视角）|
 
 > **Track B 预估总时程**：主干最少 **16-22 周**、现实 **5-7 个月**（每周 5-8 hr 兼职）
 
