@@ -6,7 +6,17 @@
 
 > 💡 這 stage 用語密度高（**RAG / 向量資料庫 / embedding / chunking / hybrid search / reranking⋯**）→ 不熟先翻 [`resources/glossary.md` §3](../resources/glossary.md#3-memory--retrieval--rag)。
 
-> 📋 **本章組成**（漸進式 flow）：〔Context Engineering 是什麼（先定位）+ 概念對照表 ×2〕→ 學習目標 → 進入條件 → 必修閱讀 → 單元指引 → **🌐 RAG 基礎流水線** → **🚀 進階 RAG 技巧**（GraphRAG / Contextual Retrieval / Hybrid Search / Query Trans / Self-improving / RAPTOR / **2024-2026 縱覽**）→ **🌉 從 RAG 到 Memory**（bridge）→ **🧠 Memory 是什麼 + 怎麼設計**（短/長期 + 3 pattern + CoALA + Generative Agents + **2024-2026 縱覽**）→ **🧩 Chunking 細節**（技術深入）→ 🪞 Reflexion 完整版 → 🤔 進階 Reasoning（Path 1 prompt-based + **Path 2 o1/R1/R2/Opus 4.7/GPT-5.5 trained-in**）→ 動手練習 → 常用工具推薦 → 精選 Projects → 自我檢查  
+> 📋 **本章組成**（漸進式 flow、由淺入深）：
+>
+> 1. **定位** —— Context Engineering 是什麼 + 概念對照表 ×2
+> 2. **目標 / 入口** —— 學習目標 → 進入條件 → 必修閱讀 → 單元指引
+> 3. **RAG 主軸** —— 🌐 RAG 基礎流水線 → 🚀 進階 RAG 技巧（GraphRAG / Contextual Retrieval / Hybrid Search / Query Trans / Self-improving / RAPTOR + **2024-2026 縱覽**）
+> 4. **Bridge** —— 🌉 從 RAG 到 Memory（為什麼 RAG 還不夠）
+> 5. **Memory 主軸** —— 🧠 短/長期 + 3 種 pattern + CoALA + Generative Agents + **2024-2026 縱覽**
+> 6. **技術深入** —— 🧩 Chunking 細節
+> 7. **進階反思 / 推理** —— 🪞 Reflexion 完整版 → 🤔 Path 1 prompt-based + **Path 2 trained-in**（o1 / R1 / V4-Pro / Opus 4.7 / GPT-5.5）
+> 8. **練習 / 推薦 / 自檢** —— 動手練習 → 常用工具 → 精選 Projects → 自我檢查
+>
 > 🔑 **關鍵名詞**：見 [`resources/glossary.md` §3](../resources/glossary.md#3-memory--retrieval--rag)（memory / RAG / embedding / chunking / reranking）
 
 ## 🎯 Context Engineering 是什麼（先定位）
@@ -19,7 +29,9 @@
 |---|---|---|---|
 | 1 | **Prompt Engineering** | 單次 LLM call 怎麼問才準 | [Stage 2](02-prompt-engineering.md) |
 | **2** | **Context Engineering**<br>（**本 stage**） | **跨多次 call 怎麼動態組 prompt** | **本 stage** |
-| 3 | **Harness Engineering** | 把多個 LLM call 包成 production runtime | [Stage 7 §Harness Engineering](07-multi-agent-production.md#-harness-engineering--production-agent-runtime-的工程學--本-stage-核心概念) |
+| 3 | **Harness Engineering**¹ | 把多個 LLM call 包成 production runtime | [Stage 7 §Harness Engineering](07-multi-agent-production.md#-harness-engineering--production-agent-runtime-的工程學--本-stage-核心概念) |
+
+> ¹ "Harness Engineering" 還不是業界統一稱呼——本教材沿用 Anthropic / Hamel Husain / Simon Willison 等人 2024-2026 寫作中的用法（loop / control flow / runtime 的工程化）。其他人可能叫 "Agent Runtime"、"Agent Loop Engineering"、"Inference Orchestration"——指的是同一件事。
 
 **Context Engineering 的 3 個 problem domain**（本 stage 主軸是前兩個）：
 
@@ -109,7 +121,7 @@ LLM 知道你的私有 / 領域資料、有 3 種主要做法。**本 stage 教 
 | Step | 做什麼 | 在哪一條 pipeline | 技術細節在 |
 |---|---|---|---|
 | **1. ingest** | 把資料載入（PDF / web / DB / 對話 log） | 預處理 | LlamaIndex / LangChain 各自 loader |
-| **2. chunk** | 把文件切成小塊（500-2000 token / chunk） | 預處理 | 見下方 §Chunking 細節 |
+| **2. chunk** | 把文件切成小塊（500-2000 token / chunk） | 預處理 | 見後段 §🧩 Chunking 細節（先讀 RAG / Memory 主軸、技術深入留到那邊） |
 | **3. embed** | 每個 chunk 轉成 N 維 vector | 預處理 | sentence-transformers / OpenAI ada-002 |
 | **4. store** | vector + metadata 存進 vector DB | 預處理 | Chroma / Qdrant / pgvector |
 | **5. retrieve + generate** | query 也 embed → top-k semantic search → 拼進 prompt → LLM 生成 | 每次 query | 通用 LLM API |
@@ -294,6 +306,8 @@ LLM 知道你的私有 / 領域資料、有 3 種主要做法。**本 stage 教 
 > - **不再手寫 prompt**（DSPy / 自動化 optimize）—— 系統自動 search 出最佳 prompt + retriever 組合
 
 ## 🌉 從 RAG 到 Memory — 為什麼 RAG 還不夠
+
+讀到這你已會跑基本 RAG + 知道幾個 production 槓桿。但回頭看 §Context Engineering 列的 3 個 problem domain——你只解決了 **Retrieval**，**Memory 管理**還沒碰。為什麼這兩件事要分開？
 
 RAG 解決「從**外部知識庫** retrieve 相關片段」——但 agent 還需要「**自己** 跨對話 / 跨 session 記事情」。這兩件事不是同一個問題：
 

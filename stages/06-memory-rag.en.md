@@ -6,7 +6,17 @@
 
 > 💡 This stage is dense with terminology (**RAG / vector database / embedding / chunking / hybrid search / reranking...**). If you're unfamiliar, first check [`resources/glossary.md` §3](../resources/glossary.md#3-memory--retrieval--rag).
 
-> 📋 **Chapter Outline (Progressive Flow)**: What is Context Engineering (positioning) + Concept Comparison Tables ×2 → Learning Objectives → Entry Conditions → Required Reading → Unit Guide → **🌐 Basic RAG Pipeline** → **🚀 Advanced RAG Techniques** (GraphRAG / Contextual Retrieval / Hybrid Search / Query Trans / Self-improving / RAPTOR / **2024-2026 Overview**) → **🌉 From RAG to Memory** (bridge) → **🧠 What is Memory & How to Design It** (short/long-term + 3 patterns + CoALA + Generative Agents + **2024-2026 Overview**) → **🧩 Chunking Details** (technical deep dive) → 🪞 Reflexion (Complete Version) → 🤔 Advanced Reasoning (Path 1 prompt-based + **Path 2 o1/R1/R2/Opus 4.7/GPT-5.5 trained-in**) → Hands-on Exercises → Recommended Tools → Featured Projects → Self-Check
+> 📋 **Chapter Outline** (progressive flow, shallow → deep):
+>
+> 1. **Positioning** — What Context Engineering is + 2 concept comparison tables
+> 2. **Goals / Entry** — Learning Objectives → Entry Conditions → Required Reading → Unit Guide
+> 3. **RAG Main Track** — 🌐 Basic RAG Pipeline → 🚀 Advanced RAG Techniques (GraphRAG / Contextual Retrieval / Hybrid Search / Query Trans / Self-improving / RAPTOR + **2024-2026 Overview**)
+> 4. **Bridge** — 🌉 From RAG to Memory (why RAG isn't enough)
+> 5. **Memory Main Track** — 🧠 Short/long-term + 3 patterns + CoALA + Generative Agents + **2024-2026 Overview**
+> 6. **Technical Deep Dive** — 🧩 Chunking Details
+> 7. **Advanced Reflection / Reasoning** — 🪞 Reflexion (complete) → 🤔 Path 1 prompt-based + **Path 2 trained-in** (o1 / R1 / V4-Pro / Opus 4.7 / GPT-5.5)
+> 8. **Practice / Recs / Self-check** — Hands-on Exercises → Recommended Tools → Featured Projects → Self-Check
+>
 > 🔑 **Key Terms**: See [`resources/glossary.md` §3](../resources/glossary.md#3-memory--retrieval--rag) (memory / RAG / embedding / chunking / reranking)
 
 ## 🎯 What is Context Engineering (Positioning First)
@@ -19,7 +29,9 @@
 |---|---|---|---|
 | 1 | **Prompt Engineering** | How to ask accurately in a single LLM call | [Stage 2](02-prompt-engineering.md) |
 | **2** | **Context Engineering**<br>(**This stage**) | **How to dynamically assemble prompts across multiple calls** | **This stage** |
-| 3 | **Harness Engineering** | How to package multiple LLM calls into a production runtime | [Stage 7 §Harness Engineering](07-multi-agent-production.md#-harness-engineering--production-agent-runtime-的工程學--本-stage-核心概念) |
+| 3 | **Harness Engineering**¹ | How to package multiple LLM calls into a production runtime | [Stage 7 §Harness Engineering](07-multi-agent-production.md#-harness-engineering--production-agent-runtime-的工程學--本-stage-核心概念) |
+
+> ¹ "Harness Engineering" is not yet an industry-standardized term. This curriculum adopts the usage popularized by Anthropic / Hamel Husain / Simon Willison in 2024–2026 writing (engineering the agent loop / control flow / runtime). Others call the same thing "Agent Runtime," "Agent Loop Engineering," or "Inference Orchestration."
 
 **3 Problem Domains of Context Engineering** (This stage focuses on the first two):
 
@@ -109,7 +121,7 @@ RAG Fusion, query rewrite, and other techniques in the diagram are advanced retr
 | Step | What it does | Which pipeline | Technical details in |
 |---|---|---|---|
 | **1. Ingest** | Load data (PDF / web / DB / conversation logs) | Preprocessing | LlamaIndex / LangChain loaders |
-| **2. Chunk** | Split documents into small pieces (500-2000 tokens/chunk) | Preprocessing | See §Chunking Details below |
+| **2. Chunk** | Split documents into small pieces (500-2000 tokens/chunk) | Preprocessing | See later §🧩 Chunking Details (read the RAG / Memory main tracks first; technical deep dive is parked there) |
 | **3. Embed** | Convert each chunk into an N-dimensional vector | Preprocessing | `sentence-transformers` / OpenAI `text-embedding-ada-002` |
 | **4. Store** | Store vectors + metadata in a vector DB | Preprocessing | Chroma / Qdrant / pgvector |
 | **5. Retrieve + Generate** | Embed the query → top-k semantic search → assemble into prompt → LLM generates | Per query | General LLM API |
@@ -294,6 +306,8 @@ Here are other common techniques in production/research, categorized by use case
 > - **No more manual prompts** (DSPy / automated optimization) — Systems automatically search for the optimal prompt + retriever combination.
 
 ## 🌉 From RAG to Memory — Why RAG Isn't Enough
+
+You can now run a basic RAG pipeline and know a few production levers. But look back at the 3 problem domains in §Context Engineering — you've only tackled **Retrieval**; **Memory management** is still untouched. Why are these two separated?
 
 RAG solves the problem of retrieving relevant snippets from an **external knowledge base**. But an agent also needs to **remember its own experiences** across conversations and sessions. These are not the same problem:
 
