@@ -16,12 +16,16 @@
 
 ## 精选 Projects
 
-> 7 个主流 CLI agent（Claude Code / Codex / OpenCode / Gemini CLI / goose / Aider / Hermes Agent）的并列比较见 [`resources/cli-agents-guide.zh-Hans.md`](../resources/cli-agents-guide.zh-Hans.md)。第一次接触 CLI agent 想要 step-by-step 入门 → [`tracks/cli/A1-cli-intro.zh-Hans.md`](../tracks/cli/A1-cli-intro.zh-Hans.md)（Track A 第一站）。要把 CLI 接到日常工具（GitHub、Linear、Atlassian、Postgres、Playwright、Figma 等）→ [`resources/mcp-skills-catalog.zh-Hans.md`](../resources/mcp-skills-catalog.zh-Hans.md)（62 个分类整理）。下面只列开发者该知道的关键 entry。
+> **CLI agent 比较**：7 个主流 CLI agent（Claude Code / Codex / OpenCode / Gemini CLI / goose / Aider / Hermes Agent）的并列比较见 [`resources/cli-agents-guide.zh-Hans.md`](../resources/cli-agents-guide.zh-Hans.md)。第一次接触 CLI agent 想要 step-by-step 入门 → [`tracks/cli/A1-cli-intro.zh-Hans.md`](../tracks/cli/A1-cli-intro.zh-Hans.md)（Track A 第一站）。
+>
+> **MCP catalog**：要把 CLI 接到日常工具（GitHub、Linear、Atlassian、Postgres、Playwright、Figma 等）→ [`resources/mcp-skills-catalog.zh-Hans.md`](../resources/mcp-skills-catalog.zh-Hans.md)（62 个分类整理）。
+>
+> 本页只列**跟开发者 workflow 直接相关**的工具入口。
 
 ### Coding Agents
 
 #### [Cursor](https://www.cursor.com/) ⭐⭐⭐⭐⭐
-编辑器集成的 AI 结对编程工具。AI 辅助 coding 的业界标准。
+编辑器集成的 AI 结对编程工具。在 AI 编辑器类工具中采用度高，可作为比较其他 IDE agent 的基准。
 
 #### [Aider-AI/aider](https://github.com/Aider-AI/aider) ⭐⭐⭐⭐⭐
 ★ 44k+ · Apache-2.0 — git-aware 的 CLI pair-programmer。直接编辑你 repo 中的文件，commit 都自动写好。**「git-native AI 编辑流程」的开源模板**。模型不限。
@@ -51,7 +55,7 @@
 
 ### 推荐工具
 
-- [**yamadashy/repomix**](https://github.com/yamadashy/repomix) ⭐⭐⭐⭐⭐ ★ 24k+ — 把整个 codebase packed 成单个 AI-friendly 文件（XML / Markdown / JSON），方便 Claude Code / Codex 做 code review / refactoring。带 MCP server mode + tree-sitter 压缩（约 70% token 节省）+ secretlint 过滤敏感信息。**Track A 的必备 daily-driver 工具。**
+- [**yamadashy/repomix**](https://github.com/yamadashy/repomix) ⭐⭐⭐⭐⭐ ★ 24k+ — **典型开发者用途：打包整个 codebase 给 reviewer / refactor agent**。输出单个 AI-friendly 文件（XML / Markdown / JSON），方便 Claude Code / Codex 做 code review / refactoring。技术细节（MCP server mode、tree-sitter 压缩、secretlint 过滤）见官方 README。**Track A 的必备 daily-driver 工具。**
 
 ## 必练流程
 
@@ -122,7 +126,7 @@ jobs:
 - **Tier 2**：自写 Skills + MCP server——把你的 dev workflow 包成 skill team 共用
 - **Tier 3**：CI 自动跑 agent + production observability——进到 [Stage 7](../stages/07-multi-agent-production.zh-Hans.md) 领域
 
-> Tier 0-1 应该满足 90% 开发者。**升级到 Tier 2+ 要先确认 ROI**——团队够大、流程够重复、事故不可逆，才值得 invest。
+> 多数个人开发者可先停在 Tier 0-1。**升级到 Tier 2+ 要先确认 ROI**——团队够大、流程够重复、事故不可逆、才值得 invest。
 
 ## 也适用其他分支
 

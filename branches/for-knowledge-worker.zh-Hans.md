@@ -2,7 +2,7 @@
 
 > [繁體中文](./for-knowledge-worker.md) | **简体中文** | [English](./for-knowledge-worker.en.md)
 
-> 🚀 **完全没有开发背景？** 先看 [`resources/setup-guide.zh-Hans.md` A-D](../resources/setup-guide.zh-Hans.md)（30-45 分钟从零）。本分支后面提到的“Claude Code”“MCP”“Skills”都会用到 D 那个 setup。
+> 🚀 **完全没有开发背景？** 多数知识工作者可以直接从 Claude.ai / Claude Desktop 开始、**不需要任何 setup**。只有当你要接 MCP server（如 Gmail / Notion）或用 CLI 自动化时，才需要看 [`resources/setup-guide.zh-Hans.md` A-D](../resources/setup-guide.zh-Hans.md)（30-45 分钟从零）。
 
 > [← 回主路线 README](../README.zh-Hans.md) · 走完 **Track A 的 A3** 或 **Track B 的 Stage 7** 后从这里接续。把 agentic AI 应用到办公室 / 知识工作上。
 
@@ -16,7 +16,7 @@
 
 ## 精选 Projects
 
-> 💡 **想把 AI agent 接到 Notion / Gmail / Outlook / Slack / Excel / 飞书？** 62 个常用 MCP server / Skill 集成在 [`resources/mcp-skills-catalog.zh-Hans.md`](../resources/mcp-skills-catalog.zh-Hans.md)（按使用场景分类）。下面这节保留 workflow / 集成平台级
+> 💡 **想把 AI agent 接到 Notion / Gmail / Outlook / Slack / Excel / 飞书？**（例：把 Gmail 来信自动整理成 Notion 待办）62 个常用办公集成工具表见 [`resources/mcp-skills-catalog.zh-Hans.md`](../resources/mcp-skills-catalog.zh-Hans.md)（按使用场景分类）。下面这节保留 workflow / 集成平台级的工具。
 
 ### 工作流工具
 
@@ -79,7 +79,7 @@
 | Stars | ★ 147k+ |
 | License | MIT |
 
-**教什么**：可视化 AI agent 开发平台——拖拉节点设计 agent flow，内置 API + MCP server 部署。比 n8n 更专注于 agent 设计（n8n 是泛用工作流）。
+**教什么**：可视化 AI agent 设计平台——适合把客服、报告整理、资料查询这类流程画成节点。比 n8n 更专注于 agent 设计（n8n 是泛用工作流）。API / MCP server 部署是进阶备注，不必一开始就学。
 
 **适合谁**：宁可拉节点不写 Python 的知识工作者，或要设计 agent 跟团队沟通流程的人。
 
@@ -115,6 +115,12 @@ Slack / Gmail / Discord 等。Anthropic 原本维护的 reference server 已于 
 ## 层级建议
 
 大多数知识工作者应该从 **Tier 0**（Claude.ai 网页版）开始，当你需要对本机 / 云端文件重复跑的流程时，再升级到 **Tier 1**（Claude Desktop 加 MCP）。
+
+**Tier 对照**：
+- **Tier 0** = 网页（Claude.ai / ChatGPT / Gemini / Perplexity）
+- **Tier 1** = Desktop App + MCP（Claude Desktop 接 Gmail / Notion / 日历）
+- **Tier 2** = 自动化平台（n8n / Make / Langflow）
+- **Tier 3** = CLI / SDK（Claude Code / Codex / 自己写 Python）
 
 **Tier 3+（CLI / SDK）对大多数知识工作者任务来说太重。** 不要被别人怂恿过去。
 

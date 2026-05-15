@@ -2,13 +2,15 @@
 
 > [繁體中文](./for-teacher.md) | [简体中文](./for-teacher.zh-Hans.md) | **English**
 
-> 🚀 **First time with AI agents, or never written code?** Start with [`resources/setup-guide.en.md` A-C](../resources/setup-guide.en.md) (about 30 minutes to install what you need). Tier 0 and Tier 1 do not require code, so you can skip this at first; Tier 2 and later will use it.
+> 🚀 **Most teachers can start directly with Claude.ai (web) + NotebookLM, without any setup**. Only read [`resources/setup-guide.en.md` A-C](../resources/setup-guide.en.md) (about 30 minutes to install what you need) when you need to automate repeated workflows (Tier 2+, such as generating 50 parent letters every week).
 
 > [← Back to main path README](../README.en.md) · Continue here after **Track A's A3** or **Track B's Stage 7**. Apply agentic AI to teaching workflows.
 
 ## Use Cases
 
-Teacher-facing AI use cases can first be read as three branches: **lesson prep and class material creation**, **classroom and learning support**, and **other use cases**. This grouping follows common AI in Education discussions around administration, instruction, and learning, while also reflecting recent work on generative AI for material creation, feedback, and interactive support (Chen et al., 2020; Mittal et al., 2024). Start with teacher oversight and boundaries, then choose the branch that best matches your teaching need.
+Teacher-facing AI use cases can first be read as three branches: **lesson prep and class material creation**, **classroom and learning support**, and **other use cases**.
+
+This grouping follows common AI in Education discussions around administration, instruction, and learning, while also reflecting recent work on generative AI for material creation, feedback, and interactive support (Chen et al., 2020; Mittal et al., 2024). Start with teacher oversight principles and boundaries, then choose the branch that best matches your teaching need.
 
 ![Teacher and AI agent use-case overview](../resources/diagrams/teacher-ai-use-cases-overview.jpg)
 
@@ -18,7 +20,7 @@ AI can prepare and assist, but it should not replace teacher judgment. Recent AI
 
 - **Keep teacher judgment in the loop**: when student data, grades, or teaching decisions are involved, teachers remain responsible for final review.
 - **Avoid giving answers too quickly**: if students interact with an AI agent, design the flow as Socratic dialogue so students explain their reasoning across multiple turns.
-- **Align with learning goals**: use prompts, skills, or fixed workflows to constrain the agent's role and task, so student interaction stays tied to the lesson.
+- **Align with learning goals**: use fixed prompts, checklists, or school-approved tools to constrain the AI's role and task, so student interaction stays tied to the lesson.
 - **Rewrite student questions when needed**: for younger students, such as elementary or middle-school learners, rewrite unclear questions before sending them to the agent.
 
 ### Lesson Prep and Class Material Creation
@@ -72,8 +74,8 @@ These use cases may not happen directly inside a lesson, but they shape teacher 
 #### [obra/superpowers](https://github.com/obra/superpowers) ⭐⭐⭐⭐
 General writing / brainstorming skills. Adaptable for lesson prep.
 
-#### [Claude Code](https://github.com/anthropics/claude-code) (with custom CLAUDE.md) ⭐⭐⭐⭐⭐
-★ 120k+ — A good place for teachers to start. Use Claude.ai (web) for low-barrier exploration; upgrade to Claude Code when a workflow becomes repeatable.
+#### Advanced automation: [Claude Code](https://github.com/anthropics/claude-code) (with custom CLAUDE.md) ⭐⭐⭐⭐⭐
+★ 120k+ — **The basic teacher stack is Claude.ai (web) + NotebookLM + Google Classroom / LMS integrations**; start there. **Upgrade to Claude Code only when you already have repeatable batch workflows** (such as generating 50 parent letters every week or analyzing student feedback every semester), and expect to learn some CLI.
 
 ### Teaching Course Materials (for teachers preparing classes)
 
@@ -184,7 +186,7 @@ Teachers using LLMs are different from regular users — **student data is invol
 - **AI assistance ≠ AI grading**: drafting feedback / rubrics with LLM is fine, but **final grades require human judgment** — LLMs aren't reliable on complex evaluation yet
 - **Disclose to students**: if class material is AI-assisted, disclose it (similar to declaring AI tool use in papers). Teaching integrity matters
 - **Fact-check**: LLMs hallucinate citations, scholar names, research data. Domain content **must be verified** before class
-- **Student work copyright**: don't bulk-upload student writing to third-party services for analysis — risks FERPA / GDPR violations
+- **Student work copyright**: don't bulk-upload student writing to third-party services for analysis — it may involve local privacy law, school policy, and third-party service terms. In the **United States**, also consider FERPA (student record protection); in the **European Union**, GDPR; and in **Taiwan**, the Personal Data Protection Act and school notices. Actual applicability depends on local law and school IT policy
 
 If your school / institution has an AI policy, **that takes priority** over this guide.
 

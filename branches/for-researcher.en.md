@@ -2,7 +2,7 @@
 
 > [繁體中文](./for-researcher.md) | [简体中文](./for-researcher.zh-Hans.md) | **English**
 
-> 🚀 **First time installing Python or creating an API key?** Start with [`resources/setup-guide.en.md` A-C](../resources/setup-guide.en.md). This branch assumes you can run Python scripts, have an API key, and can use git.
+> 🚀 **Computational researchers** (can run Python scripts, have an API key, and can use git) can jump into the advanced path directly. **Non-programming researchers** (humanities/social sciences, clinical research, literature-first work) can start with literature Q&A (NotebookLM) and Zotero AI tools, then read [`resources/setup-guide.en.md` A-C](../resources/setup-guide.en.md) when needed.
 
 > [← Back to main path README](../README.en.md) · Continue here after **Track A's A3** or **Track B's Stage 7**. Apply agentic AI to research workflows.
 
@@ -35,7 +35,7 @@ Claude Code infrastructure for PhD researchers — skills, agents, hooks, rules 
 | Stars | ★ 8k+ |
 | License | Apache-2.0 |
 
-**What it teaches**: High-accuracy RAG over PDF documents, with grounded sentence-level citations on every answer.
+**What it teaches**: PDF Q&A designed for **citation-grounded Q&A** — every answer includes sentence-level citations to reduce hallucination risk. Actual accuracy depends on document type; use the official benchmarks / papers as the reference.
 
 **Best for**: Researchers writing literature reviews who need "every answer must be traceable to its source." More rigorous than generic RAG.
 
@@ -63,7 +63,7 @@ Claude Code infrastructure for PhD researchers — skills, agents, hooks, rules 
 | Stars | ★ 28k+ |
 | License | MIT |
 
-**What it teaches**: Multi-perspective outline-then-write pipeline — agent first generates an outline from multiple angles, then expands into Wikipedia-style articles. From Stanford OVAL.
+**What it teaches**: Multi-perspective outline-then-write pipeline — plain-language version: (1) simulate different perspectives asking questions, (2) organize those questions into an outline, then (3) generate a Wikipedia-style draft. From Stanford OVAL.
 
 **Best for**: Learning **outline-driven writing**. Great for producing topic briefs from scratch; the closest open-source analog to NotebookLM's structured report flow.
 
@@ -106,7 +106,9 @@ Claude Code infrastructure for PhD researchers — skills, agents, hooks, rules 
 
 ### Research Workflow Skills (by the repo maintainer)
 
-> Skills / workspaces the repo maintainer [@WenyuChiou](https://github.com/WenyuChiou) (Lehigh CEE PhD candidate) uses daily for research. Listed here so other researchers can pick them up directly. Full entries in [`resources/mcp-skills-catalog.en.md` 13-14](../resources/mcp-skills-catalog.en.md#13-research-workflow-skills-academic--paper--lit).
+> Skills / workspaces the repo maintainer [@WenyuChiou](https://github.com/WenyuChiou) (Lehigh CEE PhD candidate) uses daily for research. Listed here so other researchers can pick them up directly.
+>
+> ⚠️ **Disclosure**: these are **maintainer self-use tools and have not been independently evaluated by third parties**. Do not treat them as equivalent to tools such as NotebookLM / GROBID / GPTresearcher that have papers or broader community adoption. Best fit: research workflows similar to the maintainer's (PhD dissertation writing, cross-paper literature organization). Limits: no third-party benchmark, and they may not fit your field. Full entries in [`resources/mcp-skills-catalog.en.md` 13-14](../resources/mcp-skills-catalog.en.md#13-research-workflow-skills-academic--paper--lit).
 
 #### [WenyuChiou/ai-research-skills](https://github.com/WenyuChiou/ai-research-skills) ⭐⭐⭐⭐⭐
 

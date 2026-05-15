@@ -6,11 +6,14 @@
 
 ⏱ **Time estimate**: 1-2 weeks (~8-15 hours)
 
+> 📋 **Chapter structure**: Learning goals → Entry conditions → Required reading → Hands-on exercises → Curated Projects → Self-check
+> 🔑 **Key terms**: see [`resources/glossary.en.md` 5](../../resources/glossary.en.md#5-claude-code-ecosystem) (CLAUDE.md / slash command / SKILL.md / plugin / portable prompt)
+
 After installing a CLI and running first tasks, the next question: **how do I make the CLI consistent, repeatable, shareable?** This stop covers workflow patterns — turning "I retype the same prompt every time" into "set it up once, the CLI does the right thing automatically".
 
 ## 📌 Learning Goals
 
-- Write a production-grade `CLAUDE.md` / `AGENTS.md` (not a 1-line note — a 30-50 line working spec)
+- Write a production-grade `CLAUDE.md` / `AGENTS.md` — the minimum production-grade shape is **(1) role** + **(2) project context** + **(3) forbidden actions** + **(4) test commands** + **(5) delivery format**. In practice, 30-50 lines can usually cover those 5 things; beyond 50 lines, split the file
 - Design repeatable slash commands / custom prompts
 - Decompose multi-step tasks into ones the CLI can execute end-to-end
 - Design prompts portable across CLIs
@@ -56,6 +59,8 @@ Give the CLI a complex task ("translate these 50 markdown files to English + add
 - Second time: pre-decompose into 5 sub-tasks, give them one by one → observe the difference
 - Lesson: the CLI is like you — too-big tasks need decomposition; too-small tasks lead to over-orchestration
 
+> ⭐ **Advanced note: Claude Code native multi-agent mechanisms** (read this one sentence for now; no need to expand it in A2): the manual sub-task splitting in CLI-7 can be automated with Claude Code's **Subagent / Agent team / Background agent** mechanisms. The full explanation, exercises, and when-not-to-use guidance (team permissions, context isolation, and result-review flow all matter) are in **[Stage 5.5](../../stages/05-claude-code-ecosystem.en.md#55--subagents-claude-codes-native-multi-agent-mechanism--2025-new-feature)**.
+
 ### Exercise CLI-8: Portable prompt
 Write a prompt that works in Claude Code. **Run the same prompt in Codex / OpenCode / Gemini CLI** — what needs to change? Common discoveries:
 - file path conventions differ (cwd vs absolute)
@@ -75,9 +80,7 @@ official — Claude Code memory / CLAUDE.md authoring docs, including best pract
 ★ 178k+ — Not just a skill collection but also a production CLAUDE.md template. Read the full `.claude/` structure.
 
 #### [mattpocock/skills](https://github.com/mattpocock/skills) ⭐⭐⭐⭐
-★ 59k+ — A practitioner's daily skill library. The `.claude/` structure is a great reference.
-
-> More skill / SKILL.md examples in [Stage 5.3 — Skills](../../stages/05-claude-code-ecosystem.en.md#53--skills-claude-code-behavior-layer).
+A practitioner's daily skill library. The `.claude/` structure is a great reference. **More skill examples in [Stage 5.3 — Skills](../../stages/05-claude-code-ecosystem.en.md#53--skills-claude-code-behavior-layer).**
 
 ---
 
@@ -108,7 +111,7 @@ Look at Setup A / B / C and try one that fits.
 
 ### Recommended Tools
 
-- [**yamadashy/repomix**](https://github.com/yamadashy/repomix) ⭐⭐⭐⭐⭐ ★ 24k+ — Packs your entire codebase into a single AI-friendly file (XML / Markdown / JSON) for Claude Code / Codex to do code review / refactoring. Includes MCP server mode + tree-sitter compression (~70% token savings) + secretlint for secret filtering. **A must-have, daily-driver-grade tool for Track A.**
+- [**yamadashy/repomix**](https://github.com/yamadashy/repomix) ⭐⭐⭐⭐⭐ ★ 24k+ — Packs your entire codebase into a single AI-friendly file (XML / Markdown / JSON) for Claude Code / Codex code review / refactoring. Includes MCP server mode + tree-sitter compression (compression varies by language and file structure) + secretlint for secret filtering. **A must-have, daily-driver-grade tool for Track A.**
 
 ## ✅ Self-Check Before A3
 

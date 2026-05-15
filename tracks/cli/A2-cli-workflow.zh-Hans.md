@@ -4,13 +4,16 @@
 
 > [← A1 — CLI 入门](A1-cli-intro.zh-Hans.md) · **Track A: CLI Power User** 第 2 站
 
-⏱ **时间估算**：1-2 週（约 8-15 小时）
+⏱ **时间估算**：1-2 周（约 8-15 小时）
+
+> 📋 **本章组成**：学习目标 → 进入条件 → 必修阅读 → 动手练习 → 精选 Projects → 自我检查
+> 🔑 **关键名词**：见 [`resources/glossary.zh-Hans.md` 5](../../resources/glossary.zh-Hans.md#5-claude-code-生态)（CLAUDE.md / slash command / SKILL.md / plugin / portable prompt）
 
 装好 CLI、跑过第一个任务之后，下一个问题：**怎么让 CLI 一致地、可重复地、可分享地做事**？这节讲 workflow pattern——把「我每次都要重打一遍 prompt」变成「设好一次后 CLI 自己会用对方法」。
 
 ## 📌 学习目标
 
-- 写一份 production-grade 的 `CLAUDE.md` / `AGENTS.md`（不是 1 行说明，是 30-50 行的工作规范）
+- 写一份 production-grade 的 `CLAUDE.md` / `AGENTS.md`——production-grade 的最低构成：**(1) 角色** + **(2) 项目背景** + **(3) 禁止事项** + **(4) 测试指令** + **(5) 交付格式**。实务上 30-50 行可同时涵盖这 5 件事；超过 50 行通常该拆文件
 - 设计可重复的 slash command / custom prompt
 - 把多步骤任务拆成 CLI 能跑完的小步骤
 - 设计 prompt 让任务在不同 CLI 上 portable
@@ -56,6 +59,8 @@ description: Review staged changes for security + style
 - 第二次：你先拆成 5 个 sub-task，逐一给 CLI → 观察结果差别
 - 学到：CLI 跟你一样，太大的任务要拆；给太小的任务又会 over-orchestrate
 
+> ⭐ **进阶补充：Claude Code 原生 multi-agent 机制**（这 1 句先看就好，不展开）：CLI-7 教的“手动拆 sub-task”其实 Claude Code 有 **Subagent / Agent team / Background agent** 三种原生工具可以自动化。完整 3 种机制 + 动手练习 + 何时不该用（团队权限、上下文隔离、结果审查流程都要先想好）见 **[Stage 5.5](../../stages/05-claude-code-ecosystem.zh-Hans.md#55--subagentsclaude-code-原生-multi-agent-机制-2025-新功能)**——在 A2 阶段先知道有这层，不需要学细节。
+
 ### 动手练习 CLI-8：Portable prompt
 写一个 prompt 给 Claude Code 跑成功了。**换到 Codex / OpenCode / Gemini CLI 跑同一个 prompt**——什么地方需要改？通常会发现：
 - file path convention 不同（cwd vs absolute）
@@ -75,9 +80,7 @@ official — Claude Code memory / CLAUDE.md 编写的官方说明，含 best pra
 ★ 178k+ — 不只是 skill collection，也是 production CLAUDE.md 范本。看 `.claude/` whole directory structure。
 
 #### [mattpocock/skills](https://github.com/mattpocock/skills) ⭐⭐⭐⭐
-★ 59k+ — 工程师日常用的 skill 库。`.claude/` structure 是好参考。
-
-> 更多 skill / SKILL.md 范例见 [Stage 5.3 — Skills](../../stages/05-claude-code-ecosystem.zh-Hans.md#53--skillsclaude-code-的行为层)。
+工程师日常用的 skill 库。`.claude/` structure 是好参考。**更多 skill 范例见 [Stage 5.3 — Skills](../../stages/05-claude-code-ecosystem.zh-Hans.md#53--skillsclaude-code-的行为层)。**
 
 ---
 
@@ -108,7 +111,7 @@ official — Claude Code memory / CLAUDE.md 编写的官方说明，含 best pra
 
 ### 推荐工具
 
-- [**yamadashy/repomix**](https://github.com/yamadashy/repomix) ⭐⭐⭐⭐⭐ ★ 24k+ — 把整个 codebase packed 成单个 AI-friendly 文件（XML / Markdown / JSON），方便 Claude Code / Codex 做 code review / refactoring。带 MCP server mode + tree-sitter 压缩（约 70% token 节省）+ secretlint 过滤敏感信息。**Track A 的必备 daily-driver 工具。**
+- [**yamadashy/repomix**](https://github.com/yamadashy/repomix) ⭐⭐⭐⭐⭐ ★ 24k+ — 把整个 codebase packed 成单个 AI-friendly 文件（XML / Markdown / JSON），方便 Claude Code / Codex 做 code review / refactoring。带 MCP server mode + tree-sitter 压缩（压缩率依语言与文件结构而异）+ secretlint 过滤敏感信息。**Track A 的必备 daily-driver 工具。**
 
 ## ✅ 进 A3 前的自我检查
 
@@ -125,6 +128,6 @@ official — Claude Code memory / CLAUDE.md 编写的官方说明，含 best pra
 ## 💡 常见坑
 
 - **CLAUDE.md 写太长**：超过 100 行 CLI 会自己 truncate / 忽略后段。Sweet spot 30-60 行。
-- **Slash command 寫成「请做 X、Y、Z、A、B」一句**：CLI 容易跳步骤。改写成编号 list + 每步成功标准。
+- **Slash command 写成「请做 X、Y、Z、A、B」一句**：CLI 容易跳步骤。改写成编号 list + 每步成功标准。
 - **Portable 过头**：每个 CLI 还是有自己的特长；不要为了能跨 CLI 把 prompt 变得太抽象、失去具体性。
 - **觉得自己「都会」就不写了**：CLAUDE.md 是给未来的你（跟新成员）看的，不是给现在的你看的。

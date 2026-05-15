@@ -6,7 +6,10 @@
 
 ⏱ **Time estimate**: 1 week (~5-10 hours)
 
-After Stages 0-2, you want to use existing CLI agents to get real work done — not write a ReAct loop from scratch. This track is for you. First stop: **pick a CLI agent and get it running**.
+> 📋 **Chapter structure**: Learning goals → Entry conditions → Required reading → Hands-on exercises → Curated Projects → Self-check
+> 🔑 **Key term**: this page only uses **CLI agent** (an AI tool that runs in the terminal). MCP / Skill / plugin and other ecosystem terms are introduced where they first appear in A2 / A3. Full glossary: [`resources/glossary.en.md`](../../resources/glossary.en.md).
+
+After Stages 0-2, you want to use existing CLI agents to get real work done — **not write agent code yourself, just use existing tools to complete tasks first**. This track is for you. First stop: **pick a CLI agent and get it running**.
 
 ## 📌 Learning Goals
 
@@ -32,7 +35,14 @@ You should already:
 ## 🛠 Hands-on Exercises (foundational, illustrative)
 
 ### Exercise CLI-1: Install + first run
-Follow your chosen CLI's quickstart. **Don't write "hello world"** — give it a real task you were going to do today, e.g. "organize my Downloads folder, move all PDFs to ~/Documents/PDFs". Watch how it decomposes the task and what confirmations it asks for.
+
+**Finish it in 3 steps**:
+
+1. **Install**: follow your chosen CLI's quickstart (each CLI's official docs should have a ≤5-minute install guide)
+2. **Pick a low-risk real task**: don't write "hello world" — choose something you were already going to do today, e.g. "organize my Downloads folder and move all PDFs to ~/Documents/PDFs"
+3. **Observe 3 things**: how it decomposes the task, when it asks for confirmation, and what output format it uses
+
+→ Real tasks are what make the difference between an agent and a chatbot visible.
 
 ### Exercise CLI-2: CLI's built-in system prompt file
 - Claude Code → write a `CLAUDE.md` at the repo root
@@ -73,7 +83,7 @@ Detailed comparison (stars, license, strengths, recommended use cases) in [`reso
 ★ 44k+ — git-native, auto commit / branch. Pick this when you want clean git workflow with code edits.
 
 #### [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) ⭐⭐⭐⭐⭐
-★ 142k+ — Nous Research's self-improving agent. Three differentiators: (1) the agent runs on a cloud VM and you message it from Telegram / Discord / Slack / WhatsApp / Signal; (2) model-neutral — supports GLM / Kimi / Xiaomi MiMo / MiniMax and other Chinese-ecosystem LLMs; (3) built-in cron scheduler + autonomous skill-evolution loop. ⚠️ Self-improving skills is a frontier feature with no independent audit yet — start in low-stakes contexts.
+★ 142k+ — Nous Research's auto-evolving agent. Three differentiators: (1) the agent runs on a cloud VM and you message it from Telegram / Discord / Slack / WhatsApp / Signal; (2) model-neutral — supports GLM / Kimi / Xiaomi MiMo / MiniMax and other Chinese-ecosystem LLMs; (3) built-in cron scheduler + autonomous skill-evolution loop (★ data as of 2026-05; check the official GitHub for current numbers). ⚠️ Auto-evolving skills are experimental, lack third-party independent audits, and should be safety- and maintenance-verified before production use; start in low-risk contexts.
 
 ---
 

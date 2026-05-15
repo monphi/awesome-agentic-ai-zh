@@ -6,7 +6,20 @@
 
 ⏱ **Time estimate**: 1-2 weeks (~8-15 hours)
 
-After your CLI runs smoothly, the next step: **wire it into your real workflow**. MCP server integration, CI automation, cost / observability. After this stop, the CLI is no longer just your personal tool — it's part of your team's workflow.
+> 📋 **Chapter structure**: Learning goals → Entry conditions → Required reading → Hands-on exercises → Curated Projects → Self-check
+> 🔑 **Key terms** (used in this chapter):
+> - **Required here**: MCP (connect CLI to external data / tools), CI (run checks automatically on every push)
+> - **Further-reading terms**: observability (trace CLI behavior), eval (measure CLI quality), prompt caching (reduce repeated-context cost), cost tracking (record token spend)
+>
+> Full definitions: [`resources/glossary.en.md` 5 + 6](../../resources/glossary.en.md#5-claude-code-ecosystem)
+
+After your CLI runs smoothly, the next step is to **wire the CLI into your real team workflow**. This stop does 3 things:
+
+1. **Tool connection** — MCP servers connect the CLI to Slack / Gmail / your internal API
+2. **Automated checks** — CI (GitHub Actions) runs CLI review on every PR
+3. **Cost and logs** — observability tools track cost / latency for each task
+
+After this stop, the CLI is no longer just your personal tool — it's part of your team's workflow.
 
 ## 📌 Learning Goals
 
@@ -18,7 +31,7 @@ After your CLI runs smoothly, the next step: **wire it into your real workflow**
 ## 📚 Required Reading
 
 1. [**Stage 5.2 — MCP (Model Context Protocol)**](../../stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol--foundation) — MCP concept and basics
-2. [**Anthropic — Prompt Caching**](https://www.anthropic.com/news/prompt-caching) — the key trick for 90% cost reduction
+2. [**Anthropic — Prompt Caching**](https://www.anthropic.com/news/prompt-caching) — can significantly reduce repeated context cost under cache-eligible conditions (unchanged context, ≤5-minute reuse window, etc.); actual savings depend on the workflow, so use the official article's conditions as the reference
 3. [**Stage 7 — Observability section**](../../stages/07-multi-agent-production.en.md#exercise-3-observability) — langfuse / Helicone / weave
 4. [**`resources/cli-agents-guide.en.md`** "Common pitfalls"](../../resources/cli-agents-guide.en.md) — most common production issues with CLIs
 
@@ -55,7 +68,7 @@ Package your `.claude/commands/` and `CLAUDE.md` into a plugin, publish to inter
 
 ## 🧭 Advanced Concepts in Daily CLI Work (6 Playbooks) 🆕
 
-Track A users are **already using** [Stage 7.5 advanced concepts](../../stages/07.5-advanced-agentic-concepts.en.md) — they just have not named them yet. These 6 playbooks do not teach the concepts; they **tell you "in this situation, do this"** — each in ≤ 6 lines. **Want the deeper theory → go to Stage 7.5.**
+Track A users are **already using** [Stage 7.5 advanced concepts](../../stages/07.5-advanced-agentic-concepts.en.md) — they just have not named them yet. Pick the **2-3 playbooks you use most often** and treat the rest as further reading — each in ≤ 6 lines. **Want the deeper theory → go to Stage 7.5.**
 
 > 📌 **Rule**: after each playbook, ask yourself "will I do something differently in the next PR?" **Yes** → applied; **No** → skip to the next one.
 
@@ -114,7 +127,7 @@ Track A users are **already using** [Stage 7.5 advanced concepts](../../stages/0
 ### 📋 Playbook 5: Controlling cost
 
 - **When**: You use Codex for a large batch of work, the monthly API bill is getting out of control, and you want to stay inside budget
-- **Do**: Set `max_cost_usd` in `plan.yml`; use a cheap model (Haiku) for exploration and an expensive model (Opus) only for polish; turn on prompt caching (90% discount); automate QA instead of spending human time
+- **Do**: Set `max_cost_usd` in `plan.yml`; use a cheap model (Haiku) for exploration and an expensive model (Opus) only for polish; turn on prompt caching (can significantly reduce repeated context cost under cache-eligible conditions); automate QA instead of spending human time
 - **Concepts**: Cost-aware Budget Gates + Throughput-Merge Philosophy · 📊 See [concept-cluster](../../resources/diagrams/concept-cluster.en.png), Config × resilience cluster
 - **Read more**:
 

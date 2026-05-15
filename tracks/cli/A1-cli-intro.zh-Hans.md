@@ -6,7 +6,10 @@
 
 ⏱ **时间估算**：1 周（约 5-10 小时）
 
-读完 Stage 0-2 之后，你想直接用现成的 CLI agent 把工作做完，不打算自己从零写 ReAct loop？这条轨就是给你的。第一站：**选一个 CLI agent，跑起来**。
+> 📋 **本章组成**：学习目标 → 进入条件 → 必修阅读 → 动手练习 → 精选 Projects → 自我检查
+> 🔑 **关键名词**：本页只用到 **CLI agent**（在终端机跑的 AI 工具）。MCP / Skill / plugin 等其他生态名词会在 A2 / A3 第一次使用时再解释。完整词表见 [`resources/glossary.zh-Hans.md`](../../resources/glossary.zh-Hans.md)。
+
+读完 Stage 0-2 之后，你想直接用现成的 CLI agent 把工作做完，**不打算自己写 agent 程序，只想先用现成工具完成任务**？这条轨就是给你的。第一站：**选一个 CLI agent，跑起来**。
 
 ## 📌 学习目标
 
@@ -34,7 +37,14 @@
 ## 🛠 动手练习（基础 illustrative 练习）
 
 ### 动手练习 CLI-1：安装 + 第一次跑
-照你选的 CLI 的 quickstart 安装。第一个 prompt 不要写「hello world」——直接给它一个你今天本来就要做的事，譬如：「整理我 Downloads 数据夹，把 PDF 全部 move 到 ~/Documents/PDFs」。观察它怎么分解任务、要哪些确认。
+
+**3 步走完**：
+
+1. **装**：照你选的 CLI 的 quickstart 安装（每个 CLI 官网都有 ≤ 5 分钟的安装指南）
+2. **挑一个低风险真实任务**：不要写 "hello world"——挑一件你今天本来就要做的事（例：整理我 Downloads 文件夹，把 PDF 全部 move 到 ~/Documents/PDFs）
+3. **观察 3 件事**：它怎么分解任务、何时要求确认、输出格式如何
+
+→ 用真任务跑，才能感受 agent 跟 chatbot 的差别。
 
 ### 动手练习 CLI-2：CLI 内建的 system prompt 文件
 - Claude Code → 写一个 `CLAUDE.md` 在 repo 根目录
@@ -75,7 +85,7 @@
 ★ 44k+ — git-native，自动 commit / branch。要写 code 想要 git 流程干净的人用这个。
 
 #### [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) ⭐⭐⭐⭐⭐
-★ 142k+ — Nous Research 出的 self-improving agent。差异化在三件事：(1) agent 跑 cloud VM，从 Telegram / Discord / Slack 任一介面跟它聊；(2) 多 LLM 中性，支持 GLM / Kimi / 小米 MiMo / MiniMax 等中文圈生态；(3) 内建 cron 排程 + skill 自动演化迴圈。⚠️ self-improving skill 是 frontier feature，目前缺独立审计，production 任务先在低风险场景试。
+★ 142k+ — Nous Research 出的自动演化型 agent。差异化在三件事：(1) agent 跑 cloud VM，从 Telegram / Discord / Slack 任一界面跟它聊；(2) 多 LLM 中性，支持 GLM / Kimi / 小米 MiMo / MiniMax 等中文圈生态；(3) 内建 cron 排程 + skill 自动演化回圈（★ 数据截至 2026-05；以官方 GitHub 为准）。⚠️ 自动演化 skill 是实验性功能，缺第三方独立审计，production 用前请自行验证安全性与维护状态，先在低风险场景试。
 
 ---
 

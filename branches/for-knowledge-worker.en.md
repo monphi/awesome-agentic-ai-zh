@@ -2,7 +2,7 @@
 
 > [繁體中文](./for-knowledge-worker.md) | [简体中文](./for-knowledge-worker.zh-Hans.md) | **English**
 
-> 🚀 **No development background at all?** Start with [`resources/setup-guide.en.md` A-D](../resources/setup-guide.en.md) (30-45 minutes from zero). Later mentions of "Claude Code", "MCP", and "Skills" in this branch all rely on the D setup.
+> 🚀 **No development background at all?** Most knowledge workers can start directly with Claude.ai / Claude Desktop, **without any setup**. Only read [`resources/setup-guide.en.md` A-D](../resources/setup-guide.en.md) (30-45 minutes from zero) when you need to connect an MCP server (such as Gmail / Notion) or use CLI automation.
 
 > [← Back to main path README](../README.en.md) · Continue here after **Track A's A3** or **Track B's Stage 7**. Apply agentic AI to office / knowledge work.
 
@@ -16,7 +16,7 @@
 
 ## Curated Projects
 
-> 💡 **Want to wire your AI agent to Notion / Gmail / Outlook / Slack / Excel / Lark?** 57 commonly-used MCP server / Skill integrations in [`resources/mcp-skills-catalog.en.md`](../resources/mcp-skills-catalog.en.md) (grouped by use case). The section below stays focused on workflow / integration-platform-level tools.
+> 💡 **Want to wire your AI agent to Notion / Gmail / Outlook / Slack / Excel / Lark?** Example: automatically turn Gmail messages into Notion todos. 62 commonly-used office integration tools are listed in [`resources/mcp-skills-catalog.en.md`](../resources/mcp-skills-catalog.en.md) (grouped by use case). The section below stays focused on workflow / integration-platform-level tools.
 
 ### Workflow Tools
 
@@ -79,7 +79,7 @@ Brainstorming, planning, and decision-making skills.
 | Stars | ★ 147k+ |
 | License | MIT |
 
-**What it teaches**: Visual AI-agent development platform — drag-and-drop node design for agent flows, with built-in API + MCP server deployment. More agent-focused than n8n (n8n is generic workflow).
+**What it teaches**: Visual AI-agent design platform — useful for mapping customer support, report assembly, and data-query workflows into nodes. More agent-focused than n8n (n8n is generic workflow). API / MCP server deployment is an advanced note, not something you need to learn first.
 
 **Best for**: Knowledge workers who'd rather wire nodes than write Python; or anyone designing agent flows for team handoff.
 
@@ -115,6 +115,12 @@ Slack / Gmail / Discord etc. The original Anthropic-hosted reference servers wer
 ## Tier Recommendations
 
 Most knowledge workers should start at **Tier 0** (Claude.ai web), upgrade to **Tier 1** (Claude Desktop with MCP) when you need repeat workflows over local/cloud files.
+
+**Tier mapping**:
+- **Tier 0** = Web (Claude.ai / ChatGPT / Gemini / Perplexity)
+- **Tier 1** = Desktop App + MCP (Claude Desktop connected to Gmail / Notion / calendar)
+- **Tier 2** = Automation platform (n8n / Make / Langflow)
+- **Tier 3** = CLI / SDK (Claude Code / Codex / your own Python)
 
 **Tier 3+ (CLI / SDK) is overkill for most knowledge worker tasks.** Don't be talked into it.
 

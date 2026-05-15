@@ -16,12 +16,16 @@
 
 ## Curated Projects
 
-> Six major CLI agents (Claude Code / Codex / OpenCode / Gemini CLI / goose / Aider / Hermes Agent) compared side-by-side in [`resources/cli-agents-guide.en.md`](../resources/cli-agents-guide.en.md). New to CLI agents and want step-by-step onboarding → [`tracks/cli/A1-cli-intro.en.md`](../tracks/cli/A1-cli-intro.en.md) (Track A first stop). Looking for MCP / Skill integrations to wire CLI into daily tools (GitHub, Linear, Atlassian, Postgres, Playwright, Figma…) → [`resources/mcp-skills-catalog.en.md`](../resources/mcp-skills-catalog.en.md) (62 entries by category). Below lists only the key entries developers should know.
+> **CLI agent comparison**: 7 major CLI agents (Claude Code / Codex / OpenCode / Gemini CLI / goose / Aider / Hermes Agent) compared side-by-side in [`resources/cli-agents-guide.en.md`](../resources/cli-agents-guide.en.md). New to CLI agents and want step-by-step onboarding → [`tracks/cli/A1-cli-intro.en.md`](../tracks/cli/A1-cli-intro.en.md) (Track A first stop).
+>
+> **MCP catalog**: Looking for integrations to wire CLI into daily tools (GitHub, Linear, Atlassian, Postgres, Playwright, Figma…) → [`resources/mcp-skills-catalog.en.md`](../resources/mcp-skills-catalog.en.md) (62 entries by category).
+>
+> This page only lists tool entry points directly relevant to developer workflows.
 
 ### Coding Agents
 
 #### [Cursor](https://www.cursor.com/) ⭐⭐⭐⭐⭐
-Editor-integrated AI pair programmer. Industry standard for AI-assisted coding.
+Editor-integrated AI pair-programming tool. Widely adopted in AI editor tools and a useful baseline for comparing other IDE agents.
 
 #### [Aider-AI/aider](https://github.com/Aider-AI/aider) ⭐⭐⭐⭐⭐
 ★ 44k+ · Apache-2.0 — git-aware CLI pair-programmer. Edits files in your repo directly and writes commits for you. **The open-source reference for "git-native AI editing."** Model-agnostic.
@@ -51,7 +55,7 @@ Editor-integrated AI pair programmer. Industry standard for AI-assisted coding.
 
 ### Recommended Tools
 
-- [**yamadashy/repomix**](https://github.com/yamadashy/repomix) ⭐⭐⭐⭐⭐ ★ 24k+ — Packs your entire codebase into a single AI-friendly file (XML / Markdown / JSON) for Claude Code / Codex to do code review / refactoring. Includes MCP server mode + tree-sitter compression (~70% token savings) + secretlint for secret filtering. **A must-have, daily-driver-grade tool for Track A.**
+- [**yamadashy/repomix**](https://github.com/yamadashy/repomix) ⭐⭐⭐⭐⭐ ★ 24k+ — **Typical developer use case: package the whole codebase for a reviewer / refactor agent**. Outputs a single AI-friendly file (XML / Markdown / JSON) for Claude Code / Codex code review / refactoring. See the official README for technical details such as MCP server mode, tree-sitter compression, and secretlint filtering. **A must-have, daily-driver-grade tool for Track A.**
 
 ## Workflows To Master
 
@@ -122,7 +126,7 @@ Reference: official [`anthropics/claude-code-action`](https://github.com/anthrop
 - **Tier 2**: Author your own Skills + MCP servers — package your dev workflow as shared team skills
 - **Tier 3**: Auto-running agents in CI + production observability — graduates to [Stage 7](../stages/07-multi-agent-production.en.md) territory
 
-> Tier 0-1 covers ~90% of developers. **Validate ROI before going Tier 2+**: only worth the investment if your team is large, flows are repetitive, and incidents are irreversible.
+> Most individual developers can stay at Tier 0-1 first. **Validate ROI before going Tier 2+**: only worth the investment if your team is large, flows are repetitive, and incidents are irreversible.
 
 ## Other Branches Also Apply
 

@@ -2,7 +2,7 @@
 
 > [繁體中文](./for-researcher.md) | **简体中文** | [English](./for-researcher.en.md)
 
-> 🚀 **第一次装 Python / 申请 API key？** 先看 [`resources/setup-guide.zh-Hans.md` A-C](../resources/setup-guide.zh-Hans.md)。本分支默认你会跑 Python script、有 API key、会用 git。
+> 🚀 **计算型研究者**（会跑 Python script、有 API key、会用 git）可直接进阶；**非程序背景研究者**（人文社科、临床研究、文献为主）可先从文献 Q&A（NotebookLM）、Zotero AI 工具开始，需要时再看 [`resources/setup-guide.zh-Hans.md` A-C](../resources/setup-guide.zh-Hans.md)。
 
 > [← 回主路线 README](../README.zh-Hans.md) · 走完 **Track A 的 A3** 或 **Track B 的 Stage 7** 后从这里接续。把 agentic AI 应用到研究流程上。
 
@@ -35,7 +35,7 @@
 | Stars | ★ 8k+ |
 | License | Apache-2.0 |
 
-**教什么**：对 PDF 文件做高准确率的 RAG，每个答案都附 grounded citation（句子层级的引用）。
+**教什么**：对 PDF 文件以 **citation-grounded Q&A** 为设计目标——每个答案附句子层级的引用、减少幻觉风险。实际准确率依文件类型而异，评测结果以官方 benchmark / paper 为准。
 
 **适合谁**：写文献回顾、需要「查文献时答案要可追溯」的研究者。比一般 RAG 更严谨。
 
@@ -63,7 +63,7 @@
 | Stars | ★ 28k+ |
 | License | MIT |
 
-**教什么**：multi-perspective outline-then-write pipeline——agent 从多个角度先产大纲、再展开成 Wikipedia-style 文章。Stanford OVAL 出品。
+**教什么**：multi-perspective outline-then-write pipeline——**白话三步**：(1) 先模拟不同观点提出问题、(2) 把问题整理成大纲、(3) 最后生成 Wikipedia-style 草稿。Stanford OVAL 出品。
 
 **适合谁**：想学「**outline-driven 写作**」的人。从零产主题 brief 时的好工具，类似 NotebookLM structured report 流程的开源版。
 
@@ -106,7 +106,9 @@
 
 ### 研究工作流 Skills（本 repo 维护者出品）
 
-> 这几个是本 repo 维护者 [@WenyuChiou](https://github.com/WenyuChiou)（Lehigh CEE PhD candidate）日常在用的研究 skill / workspace。一并放到这里让其他研究者直接用。完整 entry 内容在 [`resources/mcp-skills-catalog.zh-Hans.md` 13-14](../resources/mcp-skills-catalog.zh-Hans.md#13-研究工作流-skills学术--paper--文献)。
+> 这几个是本 repo 维护者 [@WenyuChiou](https://github.com/WenyuChiou)（Lehigh CEE PhD candidate）日常在用的研究 skill / workspace。一并放到这里让其他研究者直接用。
+>
+> ⚠️ **披露**：这些是**维护者自用工具，尚未经过第三方独立评测**——不能跟 NotebookLM / GROBID / GPTresearcher 这类已有 paper / 社群采用度的工具当同等选项。适用场景：研究流程跟维护者类似（PhD 学位写作、跨 paper 文献整理）；限制：缺第三方 benchmark、未必适合你的领域。完整 entry 内容在 [`resources/mcp-skills-catalog.zh-Hans.md` 13-14](../resources/mcp-skills-catalog.zh-Hans.md#13-研究工作流-skills学术--paper--文献)。
 
 #### [WenyuChiou/ai-research-skills](https://github.com/WenyuChiou/ai-research-skills) ⭐⭐⭐⭐⭐
 

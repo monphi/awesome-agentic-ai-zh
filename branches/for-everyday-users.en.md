@@ -2,7 +2,7 @@
 
 > [繁體中文](./for-everyday-users.md) | [简体中文](./for-everyday-users.zh-Hans.md) | **English**
 
-> 🚀 **Never written code or installed Python before?** Start with [`resources/setup-guide.en.md` A-C](../resources/setup-guide.en.md) (about 30 minutes from zero), then come back. If you already know Python and have an API key, skip it.
+> 🚀 **Everyday users can start directly at Tier 0** (web / mobile apps), **without any setup**. Only read [`resources/setup-guide.en.md` A-C](../resources/setup-guide.en.md) (about 30 minutes from zero) when you want to run a local LLM (Tier 3) or use CLI automation (Tier 2).
 
 > [← Back to main path README](../README.en.md) · You **don't have to walk the full main path** to start here — this branch is for people who **just want to USE AI, not build agents**.
 
@@ -41,7 +41,7 @@ Anthropic's official interface. Best for long-form writing, in-depth discussion,
 OpenAI's official interface. Largest ecosystem (GPTs, Custom Instructions, Voice mode). The standard general-purpose pick.
 
 #### [Gemini](https://gemini.google.com) ⭐⭐⭐⭐
-Google's offering. Long context window (millions of tokens) — particularly good for dropping a whole PDF in to ask questions. Integrated with Google services (Gmail, Docs).
+Google's offering. Long context — enough to read very long documents, roughly a thick book — is particularly useful for dropping in a whole PDF and asking questions; still check whether citations and summaries are correct. Integrated with Google services (Gmail, Docs).
 
 #### [Perplexity](https://perplexity.ai) ⭐⭐⭐⭐
 Search engine × LLM — every answer cites sources. Better than ChatGPT for "needs current info" scenarios.
@@ -78,7 +78,7 @@ Desktop version of ChatGPT. Ask questions about screenshots, voice conversation,
 | Stars | ★ 80k+ |
 | License | Apache-2.0 |
 
-**What it teaches**: OpenAI's lightweight terminal coding agent. Same category as Claude Code, but uses OpenAI models.
+**What it teaches**: OpenAI's terminal agent — it can help organize files, batch-process text, and run multi-step tasks from the command line; coding is only one use case. Same category as Claude Code, but uses OpenAI models.
 
 **Best for**: People who already subscribe to ChatGPT Plus / Pro and want to use the same account in the terminal.
 
@@ -138,7 +138,7 @@ These are templates — adapt to your situation:
 - **Email triage**: paste pending emails into Claude every morning, ask it to categorize as "reply now / today / this week / skip"
 - **Language learning**: voice-mode conversation with ChatGPT in your target language; have it flag grammar mistakes
 - **Batch file cleanup**: have Claude Code rename and reorganize all files in your Downloads folder by date + topic
-- **Local privacy chat**: Ollama running qwen2.5:7b — ask medical / legal / financial questions without sending data to the cloud
+- **Local privacy chat**: Ollama running qwen2.5:7b — **organize personal medical / legal / financial notes** without sending data to the cloud. Important distinction: a local model protects **privacy**, not **correctness**. Specific medical diagnoses, legal judgments, and investment decisions still require professionals or official sources; don't rely only on AI answers
 
 ## Tier Recommendations for Everyday Users
 

@@ -6,7 +6,20 @@
 
 ⏱ **时间估算**：1-2 周（约 8-15 小时）
 
-CLI 跑得顺了之后，下一步：**把它接到你的真实工作流程里**。MCP server 集成、CI 自动化、cost / observability。这节之后，CLI 不只是你个人的工具，而是 team 工作流的一部分。
+> 📋 **本章组成**：学习目标 → 进入条件 → 必修阅读 → 动手练习 → 精选 Projects → 自我检查
+> 🔑 **关键名词**（本章用到）：
+> - **本章一定会用**：MCP（让 CLI 接外部数据 / 工具）、CI（每次 push 自动跑检查）
+> - **延伸阅读名词**：observability（追踪 CLI 行为）、eval（量化 CLI 品质）、prompt caching（重复 context 省钱）、cost tracking（token 花费记录）
+>
+> 完整定义见 [`resources/glossary.zh-Hans.md` 5 + 6](../../resources/glossary.zh-Hans.md#5-claude-code-生态)。
+
+CLI 跑得顺了之后，下一步：**把 CLI 接到你的真实团队流程**。这节达成 3 件事：
+
+1. **工具连接** — MCP server 把 CLI 接到 Slack / Gmail / 你的 internal API
+2. **自动检查** — CI（GitHub Actions）每个 PR 自动跑 CLI review
+3. **成本与记录** — observability 工具追踪每个任务的 cost / latency
+
+这节之后，CLI 不只是你个人的工具，而是 team 工作流的一部分。
 
 ## 📌 学习目标
 
@@ -18,7 +31,7 @@ CLI 跑得顺了之后，下一步：**把它接到你的真实工作流程里**
 ## 📚 必修阅读
 
 1. [**Stage 5.2 — MCP（Model Context Protocol）**](../../stages/05-claude-code-ecosystem.zh-Hans.md#52--mcpmodel-context-protocol-基础) — MCP 概念跟基础
-2. [**Anthropic — Prompt Caching**](https://www.anthropic.com/news/prompt-caching) — 90% cost reduction 的关键技巧
+2. [**Anthropic — Prompt Caching**](https://www.anthropic.com/news/prompt-caching) — 在符合缓存条件时（context 不变、≤ 5 分钟 reuse window 等）可大幅降低重复上下文的成本；实际比例依工作流而异，请以官方文章的条件为准
 3. [**Stage 7 — Observability section**](../../stages/07-multi-agent-production.zh-Hans.md#练习-3observability) — langfuse / Helicone / weave
 4. [**`resources/cli-agents-guide.zh-Hans.md`** “常见坑”](../../resources/cli-agents-guide.zh-Hans.md) — production 用 CLI 最常踩的问题
 
@@ -55,7 +68,7 @@ CLI 跑得顺了之后，下一步：**把它接到你的真实工作流程里**
 
 ## 🧭 进阶概念在 CLI 日常工作中的应用（6 个 playbooks）🆕
 
-Track A 的人**已经在用** [Stage 7.5 的进阶概念](../../stages/07.5-advanced-agentic-concepts.zh-Hans.md)，只是没给它命名。下面 6 个 playbook 不是教概念，而是**告诉你“什么情境该做什么”**——每个 ≤ 6 行。**想深挖原理 → 进 Stage 7.5。**
+Track A 的人**已经在用** [Stage 7.5 的进阶概念](../../stages/07.5-advanced-agentic-concepts.zh-Hans.md)，只是没给它命名。下面挑 **最常用 2-3 个 playbook** 细看，其余折叠为延伸阅读——每个 ≤ 6 行。**想深挖原理 → 进 Stage 7.5。**
 
 > 📌 **规则**：每个 playbook 看完先问自己“下一个 PR 我会做不一样的事吗？”**会** → applied；**不会** → 跳下一个。
 
@@ -114,7 +127,7 @@ Track A 的人**已经在用** [Stage 7.5 的进阶概念](../../stages/07.5-adv
 ### 📋 Playbook 5：控制成本
 
 - **When**：用 Codex 跑大批 work，每月 API 账单失控，想压在 budget 内
-- **Do**：`plan.yml` 设 `max_cost_usd`，便宜 model（Haiku）跑探索 / 贵 model（Opus）只跑 polish；开 prompt caching（90% 折扣）；自动化 QA（不靠人时间）
+- **Do**：`plan.yml` 设 `max_cost_usd`，便宜 model（Haiku）跑探索 / 贵 model（Opus）只跑 polish；开 prompt caching（符合缓存条件时可大幅降低重复 context 成本）；自动化 QA（不靠人时间）
 - **Concepts**：Cost-aware Budget Gates + Throughput-Merge Philosophy · 📊 图见 [concept-cluster](../../resources/diagrams/concept-cluster.zh-Hans.png) Config × 韧性 cluster
 - **Read more**：
 
