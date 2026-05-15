@@ -547,6 +547,56 @@ Plugin
 
 > 📋 **完整 15 個 recipe**（每個含**情境 + subagent + 直接複製貼上的 prompt 範本 + 何時不用**）→ [`resources/subagent-cookbook.md`](../resources/subagent-cookbook.md)
 
+### 易混淆觀念釐清（學完表格還是有點霧、看這節）
+
+學生最常搞混的 **3 組概念** + **5 條老手才知道的 gotcha**——挑你需要的看：
+
+#### Subagent vs Skill — 5 個關鍵差別
+
+很多人把 Subagent 跟 Skill 當同一件事——其實**完全不同層的東西**：
+
+| 維度 | Subagent（子 agent） | Skill（技能） |
+|---|---|---|
+| **執行環境** | 新的獨立 context window（底層是新 subprocess）| 主 session 內、同 context |
+| **工具權限** | 自己的 `tools:` 清單（可限制只能 Read / Grep）| 主 session 的工具（預設全開、skill 可用 `allowed-tools:` 縮減）|
+| **回傳結果** | 一個 final message 摘要回主 session | 沒回傳、是行為改變（規則 / persona）|
+| **適合做** | 長任務 / 平行跑 / 要 context 隔離 | 知識注入 / 規則 / 改 Claude 行為 |
+| **範例** | `code-reviewer` / `Explore` / `Plan` | `codex-delegate` / `pdf`（anthropics/skills）|
+
+**判斷快速辦法**：你**要新 context window** 嗎？要 → subagent；不要 → skill。
+
+#### Subagent vs Slash Command — 一個是任務、一個是指令
+
+| 東西 | 怎麼觸發 | 例子 |
+|---|---|---|
+| **Subagent** | 直接打對話文字、Claude 看 description 自動派遣 | 你打「Review my staged changes」→ 自動派 `code-reviewer` |
+| **Slash command** | 打 `/` 開頭的指令 | `/agents`（列 subagent）/ `/compact`（壓縮 context）/ `/help` |
+
+⚠️ **常見誤會**：`/agents` **不是用來呼叫 subagent**——它是「查當前可用 subagent 清單」的指令。**派遣是直接打對話 prompt 文字**、Claude 自己挑 subagent。
+
+#### Description = 路由 key（**寫法決定能不能被選**）
+
+主 session 怎麼知道該派哪個 subagent？看 `.claude/agents/<name>.md` 的 **`description` 欄位**。**寫法影響觸發行為**：
+
+| Description 寫法 | 觸發模式 | 例 |
+|---|---|---|
+| `...use **PROACTIVELY** when X...` | **主動觸發**——X 出現 Claude 自己派 | "use PROACTIVELY when reviewing diffs ≥ 50 lines" |
+| `...use when user asks Y...` | **被動觸發**——要使用者明白要求 | "use when user asks for code review" |
+| 空 description | **隱形**——不會被自主選 | （只能在程式碼裡用 `Agent(subagent_type=...)` 強制呼叫）|
+
+> 💡 **寫 description 像寫廣告詞**——把「我能解決什麼問題」**寫具體**、Claude 越會在對的時機選你。`PROACTIVELY` 是個**強訊號詞**——出現時 Claude 推斷「適合主動派遣」的機率大幅提升；沒寫就更常只在使用者明白要求時才會派。（它影響 Claude 的判斷、**不是程式碼層的 if-then 開關**。）
+
+#### 5 條老手才知道的 Gotcha
+
+| # | Gotcha | 為什麼重要 |
+|---|---|---|
+| 1 | **Description 寫精準即可** | 無官方字元上限、但過長 description 佔 context budget；建議「觸發條件 + 適用情境」寫具體、避免重複 |
+| 2 | **`tools:` 寫空 = 繼承主 session 全部工具** | 想限制 subagent 就要**明寫**工具清單；空字段 ≠ 沒工具 |
+| 3 | **不寫 `model:` = 跟主 session 用同 model** | 主 session 是 Opus、subagent 沒指定也 Opus（燒大錢）。省成本就寫 `model: sonnet` 或 `model: haiku`|
+| 4 | **Subagent 沒「我之前說過 X」記憶** | 每次派遣都是**全新 context**、看不到主 session 對話。Prompt 要 self-contained、不能 reference「我們剛討論的 Y」 |
+| 5 | **Subagent 也吃 hook** | PreToolUse / PostToolUse（工具執行前 / 後的攔截腳本）在 subagent 內**也會 fire**。設 hook 時要想到這層 |
+
+
 <details>
 <summary>👉 具體 subagent 檔案範例（最簡單入門）</summary>
 
