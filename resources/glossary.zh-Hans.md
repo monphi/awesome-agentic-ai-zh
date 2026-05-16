@@ -64,7 +64,7 @@ LLM 看到的不是「字」，是 **token**（次字单位）。中文 1 个字
 
 ### Context Window（上下文视窗）
 
-LLM 一次能「看」多少 token。Claude 200k、GPT-4o 128k、Gemini 2M。**不是越大越好**——超过某个长度后 LLM 会「在中间遗漏」（Lost in the Middle）。
+LLM 一次能「看」多少 token。**2026 frontier**：Claude Sonnet 4.6 / Opus 4.7 1M、GPT-5.5 ~400k、Gemini 3.1 Pro 2M。**不是越大越好**——超过某个长度后 LLM 会「在中间遗漏」（Lost in the Middle）。
 
 ### Prompt（提示词）
 
