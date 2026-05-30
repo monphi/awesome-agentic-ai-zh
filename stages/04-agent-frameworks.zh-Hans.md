@@ -62,7 +62,7 @@
 
 ### 什么时候**真的**需要 multi-agent（不要硬上）
 
-**Multi-agent 不是 default、是 last resort**。**Anthropic 跟 Cognition 两家 frontier lab 在 2024-2025 都明白写过：90% 用例其实不该用 multi-agent**——硬上会付 **3-10× token、debug 痛苦、context fragmentation 严重**。
+**Multi-agent 不是 default、是 last resort**。**Anthropic 跟 Cognition 两家 frontier lab 在 2024-2025 都明白写过：90% 用例其实不该用 multi-agent。** 硬上会付三个代价：**3-10× token、debug 痛苦、context fragmentation**——context 被切散在多个 agent、彼此看不到全貌。
 
 | 立场 | 来源 | 核心论点 |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
@@ -186,7 +186,7 @@ Stage 3 教你写 single tool / multi-tool selection（手写 `if/elif/else` 路
 
 | 分类 | Project | ⭐ | 适合谁 | 为什么推荐 / 备注 |
 | ------------------------------------------ | ---------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Production 级**<br>（复杂 multi-agent / 需要 audit） | [LangGraph](https://github.com/langchain-ai/langgraph) ⭐ **本 stage 推荐 #1** | ⭐⭐⭐⭐⭐ | Production multi-agent + 稽核轨迹 / rollback / replay | 图式 orchestration + checkpointing + time-travel debug、企业采用率最高，★ 31k+、MIT、Python+TS。搭 LangSmith 做 observability |
+| **Production 级**<br>（复杂 multi-agent / 需要 audit） | [LangGraph](https://github.com/langchain-ai/langgraph) ⭐ **本 stage 推荐 #1** | ⭐⭐⭐⭐⭐ | Production multi-agent + 稽核轨迹 / rollback / replay | 图式 orchestration + checkpointing + time-travel debug、企业广泛采用，★ 31k+、MIT、Python+TS。搭 LangSmith 做 observability |
 | | [microsoft/semantic-kernel](https://github.com/microsoft/semantic-kernel) | ⭐⭐⭐⭐ | 在 .NET / Java 环境做 agent、Microsoft 技术栈 | C# / Python / Java 三语官方 SDK、kernel + plugin + planner pattern，★ 27k+、MIT。抽象厚、不适合初学者 |
 | | [agno-agi/agno](https://github.com/agno-agi/agno) | ⭐⭐⭐⭐ | 要“build + serve + monitor”一条龙但不想全套 LangGraph + LangSmith | multi-modal agent runtime + control plane，★ 39k+、Apache-2.0。Stage 4 学 API、Stage 7 用 runtime |
 | **快速雏形 / 多 agent**<br>（role-based / handoff） | [CrewAI](https://github.com/crewAIInc/crewAI) ⭐ **本 stage 推荐 #2** | ⭐⭐⭐⭐ | 快速雏形“researcher → writer → critic”pipeline | ~20 行写完 crew、学习曲线最低，★ 50k+、MIT。⚠️ 长 workflow 没 checkpointing；雏形用 CrewAI、production 用 LangGraph |

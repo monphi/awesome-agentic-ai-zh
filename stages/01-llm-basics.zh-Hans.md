@@ -102,7 +102,7 @@
 
 - ⚠️ **Benchmark ≠ production performance**——LLM 在你 specific 任务的表现要自己跑 small eval（例如贴 10 个你真实 prompt 看哪家答得最像你要的）、**不能只看排名选**
 - ⚠️ **Frontier 6 个月洗牌一次**——上面所有数字是 **2026-05 snapshot**、之后请以**官方 docs** / [Artificial Analysis](https://artificialanalysis.ai/) 为准
-- ⚠️ **“强项”是 relative、不是 absolute**——所有 frontier model 都能完成基本任务、差别在边际情境
+- ⚠️ **“强项”是相对的、不是绝对的**——所有 frontier model 都能完成基本任务、差别在特殊或困难的情境（超长文件、复杂推理、多语言）
 - ⚠️ **中文场景看 [SuperCLUE](https://www.superclueai.com/)**——一般国际 benchmark（如 MMLU）以英文为主、中文表现可能跟英文不一致
 
 ## 🚪 进入条件
@@ -279,7 +279,7 @@ for label, prompt in PROMPTS.items():
 </details>
 
 ### 练习 3：Pricing / Latency
-**Cost-sensitive 工作**必修：算出你的 hello-world prompt 跑 1000 次在不同 model 上的成本。Ollama 本机是 $0 但有 latency 成本；Cloud LLM 有 $ 成本但快。**会算这两个 trade-off 才能挑对 model**。
+**成本敏感的工作必修**：算出你的 hello-world prompt 在不同 model 上跑 1000 次的成本。Ollama 本机是 $0 但有 latency 成本；Cloud LLM 有 $ 成本但快。**会算这两个 trade-off 才能挑对 model**。
 
 <details open>
 <summary>📋 <b>起手码 — Path A（本机 Ollama gemma4:e4b、量 latency）</b>（复制到 <code>practice_3.py</code>）</summary>

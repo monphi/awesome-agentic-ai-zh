@@ -4,7 +4,7 @@
 
 ⏱ **時間估算**：2-3 週（約 12-20 小時）
 
-> 💡 用語密度高（Computer Use / DOM / microVM / Firecracker / Sandbox / Cold start⋯）→ **本章內部就地解釋**，不熟先讀過 1 跟 7 術語小辭典。
+> 💡 **本章用語密度高**（Computer Use、DOM、microVM、Firecracker、Sandbox、Cold start 等）。別擔心——這些都會在本章內就地解釋；不熟可以先讀 Stage 1 跟 Stage 7 的術語小辭典。
 
 > 📋 **本章組成**：〔Agent Interfaces 是什麼（先定位）+ 三層 interface〕→ 學習目標 → 進入條件 → 必修閱讀 → 🖱 Computer Use（螢幕級）→ 🌐 Browser Use（web 級）→ 📦 Code Sandbox（隔離環境含**術語小辭典**）→ Track A 怎麼用 → Track B 怎麼 build → ⚠ 2026 Safety / Security → 動手練習 → 常用工具推薦 → 精選 Projects → 自我檢查 → 下一個 frontier（Voice / VLA forward note）
 

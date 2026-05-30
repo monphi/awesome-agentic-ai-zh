@@ -62,7 +62,7 @@ file:line reference + overall verdict (APPROVE / REQUEST CHANGES).
 
 ### Recipe 2: 进入新 repo，不知道该从哪个 file 开始读
 
-**场景**：clone 完一个别人的 repo，`README.md` 讲不清楚程序入口在哪，不想随便挖
+**场景**：复制完一个别人的 repo，`README.md` 讲不清楚程序入口在哪，不想随便挖
 
 **Subagent**：`Explore`
 
@@ -139,7 +139,7 @@ direct quotes and URLs. Under 400 words.
 
 ### Recipe 6: 找某个 symbol / function 在哪定义
 
-**场景**：codebase 里到处都在 import `parse_config`，想知道实作在哪个 file
+**场景**：codebase 里到处都在导入 `parse_config`，想知道实作在哪个 file
 
 **Subagent**：`Explore`
 
