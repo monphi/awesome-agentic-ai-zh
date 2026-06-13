@@ -6,6 +6,16 @@ Format: `YYYY-MM-DD · category · 1-line summary (commit-sha)`.
 
 ---
 
+## 2026-06-12
+
+- **content** · Claude Fable 5 (Mythos-class, `claude-fable-5`, GA 2026-06-09) added as the new top Claude tier across the trilingual roadmap — model tables in `CLAUDE.md` / `examples/` / stages 01·06·07·07.5·08 + glossary frontier entry; Opus 4.8 reframed as Opus-class flagship + Fable 5 safeguard-fallback. No fabricated context-window or benchmark numbers (Anthropic published none — marked "not yet published"). Also fixed a pre-existing `claude-opus-4-7` → `claude-opus-4-8` inconsistency (`12980b3`).
+- **content** · Stage 5 — new **5.6 Dynamic Workflows** section after 5.5 Subagents (ecosystem-level intro + cross-link to the 7.5 deep-dive, no duplication); old 5.6 Source → 5.7, old 5.7 SDK → 5.8, all in-file refs + 7-Layer-map ranges + cross-file anchors (glossary / stages 03·06·07) relinked, tri-locale (`5044008`).
+- **catalog** · `1weiho/open-slide` (★4.9k, MIT) added to §2 as an agent-native slide framework — ships Claude Code Skills, distinct from Stage 4 orchestration frameworks; tri-locale (`7d3fd5d`).
+- **docs** · MCP/Skills catalog count made drift-proof — stale `62` → robust `65+`, category count reconciled to 15, across 33 files / all locales (`3782dd4`). Propagated the 7→8 stage reality into design notes / style-guide / reader docs (`39d397a`) and fixed outreach-draft count drift (`25785f0`).
+- **outreach** · send-day copy-paste packages playbook for awesome-list submissions (`afd7a76`).
+
+---
+
 ## 2026-05-31
 
 - **tooling** · pruned the ops-metric scripts that don't touch stars or URL validity (strategic-review action #1, scoped down per maintainer): removed `scripts/snapshot-traffic.py` (GitHub traffic snapshots), `scripts/refresh-outreach-status.py` (outreach-matrix drift), `scripts/check-catalog-staleness.py` (dormant-entry pinger), and the `docs/traffic/` snapshot dir. **KEPT** the weekly stars + URL auto-update (`weekly-catalog-refresh.yml` + `lint.yml`'s `star-drift` job) — the maintainer values the weekly cadence for star-count refresh and link-rot checking. All correctness + trilingual-parity guards intact (anchor / link-rot / mirror-sync / stage-template / banned-words / overclaim / zh-Hans-localize).
