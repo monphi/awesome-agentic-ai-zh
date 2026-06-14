@@ -16,9 +16,16 @@
 
 > 🗺️ **Claude Code 屬於哪種 agent 型態**？→ [`resources/agent-paradigms.md`](../resources/agent-paradigms.md) Type 1（IDE-coupled）+ Type 2（Terminal pair-programmer）；想看完整 5 種 paradigm 對照也從這份開始。
 
+> 🧭 **Claude Code 只是 agent 的其中一種型態**（往下讀前先有個全局感）：Claude Code 是給**工程師**的**終端機** agent——活在命令列、處理程式碼。Anthropic 另外還有 **Claude Cowork**：給**非工程師**（研究、分析、營運）的**桌面 app**——給它一個目標、它會跨你的檔案跟應用程式把事情做完、交回成品。OpenAI 這兩種型態也都有。Stage 5 接下來專講 Claude Code，這張表只是讓你知道它在整張地圖的位置。
+
+| 型態 | 它幫你做什麼 | Anthropic | OpenAI |
+|---|---|---|---|
+| **終端機 · 給工程師** | 讀 / 改 / 跑你的程式碼 | Claude Code | Codex CLI |
+| **App · 給所有人** | 跨你的檔案、應用程式、網頁把一件事做完 | Claude Cowork | ChatGPT agent |
+
 > ⚠️ **想用本機 LLM？這個 stage 不是那條路線。** Claude Code 需要 Anthropic API / OAuth，不能直接改接 Ollama 或本機 endpoint。離線、隱私資料或不想用 API 額度時，請看 [`resources/cookbook.md` Recipe 6](../resources/cookbook.md#6-本機-llm--cli-agent-快速-walkthrough)，用 OpenCode / goose / Aider / Hermes 這類支援 BYO LLM 的 CLI agent。
 
-> 📋 **本章組成**：7 個子章（5.1 基礎 / 5.2 MCP / 5.3 Skills / 5.4 Plugins / 5.5 Subagents / 5.6 Dynamic Workflows / 5.7 Claude Code Source 解剖），每個子章都有「學習目標 → 必修閱讀 → 動手練習 → 精選 Projects」 → 章末 自我檢查。**注意**：Harness Engineering（Agent 執行系統設計）的**學科級概念**在 [Stage 7](07-multi-agent-production.md) 系統整理；本章 5.7 則把 Claude Code 當成案例，觀察一個成熟 agent 工具如何處理工具、記憶、設定、權限與執行流程
+> 📋 **本章組成**：7 個子章（5.1 基礎 / 5.2 MCP / 5.3 Skills / 5.4 Plugins / 5.5 Subagents / 5.6 Dynamic Workflows / 5.7 Claude Code Source 解剖），每個子章都有「學習目標 → 必修閱讀 → 動手練習 → 精選 Projects」 → 章末 自我檢查。**注意**：Harness Engineering（白話：model 外面的「運行外殼」——怎麼給它工具、記憶、權限，怎麼跑每一輪）的**學科級概念**在 [Stage 7](07-multi-agent-production.md) 系統整理；本章 5.7 則把 Claude Code 當成案例，觀察一個成熟 agent 工具如何處理工具、記憶、設定、權限與執行流程
 > 🔑 **關鍵名詞**：見 [`resources/glossary.md` 5](../resources/glossary.md#5-claude-code-生態)
 
 ## Stack 一覽
@@ -63,7 +70,7 @@
 | **L6 Workflow** | 固定可重用流程模板 | **Skills**（SKILL.md）+ Slash commands + **Plugins**（打包 Skills / hooks / commands、屬 packaging）| Prompt Eng | [Stage 5.3](#53--skillsclaude-code-的行為層-claude-code-生態最關鍵的一層) / [5.4](#54--plugins-與-marketplaces) |
 | **L5 Coordination** | 多 agent 分工合作 | **Subagents** + Agent team + Background | Harness Eng | [Stage 5.5](#55--subagentsclaude-code-原生-multi-agent-機制-2025-新功能) |
 | **L4 Memory / Context** | 跨對話 / 跨 session 記事情 | History / `/compact` / Memory hooks | Context Eng | [Stage 6](06-memory-rag.md) |
-| **L3 Control Plane** | tool 執行前 / 後攔截 / validation / 阻擋 | **Hooks**（PreToolUse / PostToolUse 等）| Harness Eng | [Stage 5.1 hooks 段](#51--claude-code-基礎) |
+| **L3 Control Plane**（「守門員」層） | tool 執行前 / 後攔截 / validation / 阻擋 | **Hooks**（PreToolUse / PostToolUse 等）| Harness Eng | [Stage 5.1 hooks 段](#51--claude-code-基礎) |
 | **L2 Tool Use** | LLM 呼叫外部 function 的 protocol | Anthropic Tool Use（`input_schema`）| Tool design | [Stage 3](03-tool-use-and-hello-agent.md) |
 | **L2.5 Tool Provider** | 把外部 API 包成 tool 給 Layer 2 用 | **MCP servers**（Notion / Gmail / Slack）| Context Eng + Tool | [Stage 5.2](#52--mcpmodel-context-protocol-基礎) |
 | **L1 Foundation** | LLM 本體（system prompt 直接送達這層）| Anthropic API | Prompt Eng | [Stage 1](01-llm-basics.md) + [Stage 2](02-prompt-engineering.md) |
@@ -76,7 +83,7 @@
 |---|---|---|---|
 | **Prompt Engineering** | L1 + L6 | 「送進 LLM 的字串怎麼設計」 | [Stage 2](02-prompt-engineering.md) |
 | **Context Engineering** | L4 + L2.5 | 「context window 裝什麼資訊」 | [Stage 6](06-memory-rag.md) |
-| **Harness Engineering** | L3 + L5 + L7 | 「LLM 外面的 runtime scaffolding」 | [Stage 7 §Harness Engineering](07-multi-agent-production.md#-harness-engineering--production-agent-runtime-的工程設計--本-stage-核心概念) |
+| **Harness Engineering** | L3 + L5 + L7 | 「LLM 外面的『運行外殼』——給它工具、記憶、控制流程的那層設置」 | [Stage 7 §Harness Engineering](07-multi-agent-production.md#-harness-engineering--production-agent-runtime-的工程設計--本-stage-核心概念) |
 
 > 💡 **MCP 的特殊位置**：MCP 嚴格說是 **Context Engineering**（feed context source）+ **Tool design**（協議規範）跨層東西、不純歸任一 discipline——所以圖裡用 Layer 2.5 標明。
 
@@ -529,7 +536,7 @@ Plugin
 
 ## 5.5 — Subagents（Claude Code 原生 multi-agent 機制）⭐ 2025 新功能
 
-到這裡為止你學了 MCP（工具層）/ Skills（行為層）/ Plugins（散佈層）。**Subagents 是 orchestration 層**——讓主 Claude session spawn 出有獨立 context 的子 agent、跑特定任務、回報結果。
+到這裡為止你學了 MCP（工具層）/ Skills（行為層）/ Plugins（散佈層）。**Subagents 是 orchestration 層**（orchestration = 調度一群 agent：分工，再把結果合起來）——讓主 Claude session spawn 出有獨立 context 的子 agent、跑特定任務、回報結果。
 
 ![Subagent 的 4 個生命週期：從 .md 檔到執行結果](../resources/diagrams/subagent-4-stage-flow.png)
 

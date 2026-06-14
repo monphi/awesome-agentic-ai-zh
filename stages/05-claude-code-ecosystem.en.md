@@ -16,9 +16,16 @@
 
 > 🗺️ **What kind of agent is Claude Code?** → See [`resources/agent-paradigms.en.md`](../resources/agent-paradigms.en.md) Type 1 (IDE-coupled) + Type 2 (Terminal pair-programmer); start there for a full comparison of all 5 paradigms.
 
+> 🧭 **Claude Code is just one *shape* of agent** (orientation before you dive in): Claude Code is the **terminal** agent for **developers** — it lives in your command line and works on code. Anthropic also ships **Claude Cowork**, a **desktop app for non-coders** (researchers, analysts, ops): you give it a goal and it works across your files and apps to hand back a finished result. OpenAI has both shapes too. The rest of Stage 5 is about Claude Code specifically; this table just shows where it sits.
+
+| Shape | What it does for you | Anthropic | OpenAI |
+|---|---|---|---|
+| **Terminal · for developers** | reads / edits / runs your code | Claude Code | Codex CLI |
+| **App · for everyone** | works across your files, apps, and the web to finish a task | Claude Cowork | ChatGPT agent |
+
 > ⚠️ **Looking to use a local LLM? This stage is not that path.** Claude Code requires the Anthropic API / OAuth and cannot be directly pointed to Ollama or a local endpoint. For offline work, sensitive data, or to avoid using API quota, please see [`resources/cookbook.en.md` Recipe 6](../resources/cookbook.en.md#6-local-llm--cli-agent-quick-walkthrough) and use a CLI agent that supports BYO LLM, like OpenCode / goose / Aider / Hermes.
 
-> 📋 **Structure of this chapter**: 7 sub-chapters (5.1 Basics / 5.2 MCP / 5.3 Skills / 5.4 Plugins / 5.5 Subagents / 5.6 Dynamic Workflows / 5.7 Dissecting Claude Code Source), each with "Learning Goals → Required Reading → Hands-on Exercises → Curated Projects" → followed by a self-check at the end of the chapter. **Note**: The **discipline-level** concept of Harness Engineering (the engineering of an agent's execution system) is systematically covered in [Stage 7](07-multi-agent-production.en.md); 5.7 in this chapter uses Claude Code as a case study, observing how a mature agent tool handles tools, memory, configuration, permissions, and execution flow
+> 📋 **Structure of this chapter**: 7 sub-chapters (5.1 Basics / 5.2 MCP / 5.3 Skills / 5.4 Plugins / 5.5 Subagents / 5.6 Dynamic Workflows / 5.7 Dissecting Claude Code Source), each with "Learning Goals → Required Reading → Hands-on Exercises → Curated Projects" → followed by a self-check at the end of the chapter. **Note**: The **discipline-level** concept of Harness Engineering (plain version: the "runtime shell" around the model — how it gets tools, memory, and permissions, and how each turn actually runs) is systematically covered in [Stage 7](07-multi-agent-production.en.md); 5.7 in this chapter uses Claude Code as a case study, observing how a mature agent tool handles tools, memory, configuration, permissions, and execution flow
 > 🔑 **Key Terms**: See [`resources/glossary.en.md` 5](../resources/glossary.en.md#5-claude-code-ecosystem).
 
 ## Stack at a Glance
@@ -63,7 +70,7 @@ After completing this stage, you will be able to extend Claude Code, write your 
 | **L6 Workflow** | Fixed reusable workflow templates | **Skills** (SKILL.md) + Slash commands + **Plugins** (package Skills / hooks / commands; packaging layer) | Prompt Engineering | [Stage 5.3](#53--skills-claude-codes-behavior-layer--the-most-critical-layer-of-the-claude-code-ecosystem) / [5.4](#54--plugins--marketplaces) |
 | **L5 Coordination** | Multi-agent division of labor | **Subagents** + Agent team + Background | Harness Engineering | [Stage 5.5](#55--subagents-claude-codes-native-multi-agent-mechanism--2025-new-feature) |
 | **L4 Memory / Context** | Remembering things across conversations / sessions | History / `/compact` / Memory hooks | Context Engineering | [Stage 6](06-memory-rag.en.md) |
-| **L3 Control Plane** | Intercepting / validating / blocking before and after tool execution | **Hooks** (PreToolUse / PostToolUse, etc.) | Harness Engineering | [Stage 5.1 hooks section](#51--claude-code-basics) |
+| **L3 Control Plane** (the "gatekeeper" layer) | Intercepting / validating / blocking before and after tool execution | **Hooks** (PreToolUse / PostToolUse, etc.) | Harness Engineering | [Stage 5.1 hooks section](#51--claude-code-basics) |
 | **L2 Tool Use** | Protocol for an LLM to call external functions | Anthropic Tool Use (`input_schema`) | Tool design | [Stage 3](03-tool-use-and-hello-agent.en.md) |
 | **L2.5 Tool Provider** | Wraps external APIs as tools for Layer 2 | **MCP servers** (Notion / Gmail / Slack) | Context Engineering + Tool | [Stage 5.2](#52--mcp-model-context-protocol--foundation) |
 | **L1 Foundation** | The LLM itself (the system prompt is delivered directly to this layer) | Anthropic API | Prompt Engineering | [Stage 1](01-llm-basics.en.md) + [Stage 2](02-prompt-engineering.en.md) |
@@ -76,7 +83,7 @@ Prompt / Context / Harness are **disciplines for different layers**. Learning on
 |---|---|---|---|
 | **Prompt Engineering** | L1 + L6 | "How to design the strings sent into the LLM" | [Stage 2](02-prompt-engineering.en.md) |
 | **Context Engineering** | L4 + L2.5 | "What information to load into the context window" | [Stage 6](06-memory-rag.en.md) |
-| **Harness Engineering** | L3 + L5 + L7 | "The runtime scaffolding around the LLM" | [Stage 7 §Harness Engineering](07-multi-agent-production.en.md#-harness-engineering--engineering-design-for-a-production-agent-runtime--core-concept-of-this-stage) |
+| **Harness Engineering** | L3 + L5 + L7 | "The runtime 'shell' around the LLM — the setup that gives it tools, memory, and control flow" | [Stage 7 §Harness Engineering](07-multi-agent-production.en.md#-harness-engineering--engineering-design-for-a-production-agent-runtime--core-concept-of-this-stage) |
 
 > 💡 **MCP's special position**: strictly speaking, MCP spans **Context Engineering** (feed context sources) + **Tool design** (protocol specification), so it does not belong purely to one discipline. That is why it is marked as Layer 2.5 in the diagram.
 
@@ -529,7 +536,7 @@ Plugin
 
 ## 5.5 — Subagents (Claude Code's native multi-agent mechanism) ⭐ 2025 new feature
 
-Up to this point, you've learned about MCP (the tool layer), Skills (the behavior layer), and Plugins (the distribution layer). **Subagents are the orchestration layer**—they allow the main Claude session to spawn child agents with independent contexts to run specific tasks and report back the results.
+Up to this point, you've learned about MCP (the tool layer), Skills (the behavior layer), and Plugins (the distribution layer). **Subagents are the orchestration layer** (orchestration = coordinating a group of agents: split the work, then combine the results)—they allow the main Claude session to spawn child agents with independent contexts to run specific tasks and report back the results.
 
 ![Subagent 4-Stage Lifecycle: from .md file to returned summary](../resources/diagrams/subagent-4-stage-flow.en.png)
 
